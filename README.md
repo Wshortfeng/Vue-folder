@@ -1,6 +1,23 @@
-# vue使用 https://cn.vuejs.org/
+# vue项目
 
-## 项目结构
+## vue学习地址
+
+1.vue官网：`https://cn.vuejs.org/`
+
+2.vue-router官网：`https://router.vuejs.org/zh/guide/`
+
+3.vuex官网：`https://vuex.vuejs.org/zh/`
+
+4.UI组件
+
+1).element-ui官网（适用PC端）:`http://element-cn.eleme.io/#/zh-CN/component/installation`
+
+2).vux官网（适用移动端）：`https://vux.li/`
+
+3).mint-ui(适用移动端)：`http://mint-ui.github.io/#!/zh-cn`
+
+## 软件架构
+
 ```bash
 Vuex 并不限制你的代码结构。但是，它规定了一些需要遵守的规则：
 
@@ -30,7 +47,7 @@ Vuex 并不限制你的代码结构。但是，它规定了一些需要遵守的
         └── products.js   # 产品模块
 ```
 
-## vue安装
+## 安装使用教程
 
 ``` bash
 # 查看版本
@@ -77,11 +94,13 @@ $ cnpm run dev
  DONE  Compiled successfully in 4388ms
 
 > Listening at http://localhost:8080
+>npm run build
 ```
 
-
 ## vue组件开发
+
 > 1.父子组件传值
+
 ``` bash
     1) 父组件向子组件进行传值
     父组件：
@@ -186,7 +205,9 @@ $ cnpm run dev
       }
     </script>
    ```
+
    > 2.非父子组件传值
+
    ```bash
    组件A：
       <template>
@@ -246,8 +267,11 @@ $ cnpm run dev
         }
       </script>
    ```
-   ## vue-router路由  https://router.vuejs.org/zh/guide/#html
+
+## vue-router路由  
+
    > main.js
+
    ```bash
     import Vue from 'vue'
     import Layout from './components/layout'
@@ -306,7 +330,9 @@ $ cnpm run dev
       components: { Layout }
     })
    ```
-   >layout.vue
+
+>layout.vue
+
    ```bash
    <div class="container">
       <keep-alive>
@@ -314,7 +340,9 @@ $ cnpm run dev
       </keep-alive>
     </div>
    ```
-    >index.vue
+
+>index.vue
+
    ```bash
     <div class="index-right">
         <slide-show :slides="slides" :inv="invTime"></slide-show>
@@ -336,11 +364,10 @@ $ cnpm run dev
     </div>
    ```
 
+## vuex全局状态管理
 
+>State
 
-
-## vuex全局状态管理 https://vuex.vuejs.org/zh/
-   >State
    ```bash
      1.数据存放的地方
 
@@ -367,7 +394,8 @@ $ cnpm run dev
     }
    ```
 
-   >Getter
+>Getter
+
    ```bash
    const store = new Vuex.Store({
       state: {
@@ -404,7 +432,8 @@ $ cnpm run dev
     }
    ```
 
-   >Mutation(同步方法)
+>Mutation(同步方法)
+
    ```bash
      更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。Vuex 中的 mutation 非常类似于事件：每个 mutation 都有一个字符串的 事件类型 (type) 和 一个 回调函数 (handler)。这个回调函数就是我们实际进行状态更改的地方，并且它会接受 state 作为第一个参数：
 
@@ -445,7 +474,8 @@ $ cnpm run dev
       })
    ```
 
-   >Action(异步方法)
+>Action(异步方法)
+
   ```bash
   Action 类似于 mutation，不同在于：
 
@@ -521,7 +551,9 @@ $ cnpm run dev
         }
       }
   ```
-   >Module
+
+>Module
+
    ```bash
    由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。
 
@@ -550,8 +582,11 @@ $ cnpm run dev
     store.state.a // -> moduleA 的状态
     store.state.b // -> moduleB 的状态
    ```
+
 ## 前后端交互
+
 >utils 工具文件夹
+
 ```bash
   config.js
   // 服务器端地址
@@ -592,7 +627,9 @@ $ cnpm run dev
     }
 
 ```
+
 >server 请求文件夹
+
 ```bash
 import { get, post } from '../utils/request';
 /**
@@ -621,5 +658,3 @@ export function delBook(data){
   return post('/api/v1/new/delbook',data)
 }
 
-```
-## ui组件（element-UI,Mint-ui,vux)
