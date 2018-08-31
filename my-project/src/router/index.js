@@ -41,7 +41,7 @@ const router = new Router({
 })
 router.beforeEach((to, from, next) => {
     if (to.meta.needLogin) {
-        if (utils.getkey() === undefined) {
+        if (utils.getkey() == undefined || utils.getkey() == '') {
             next('login')
         } else {
             next()
