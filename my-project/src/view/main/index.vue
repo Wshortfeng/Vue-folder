@@ -1,9 +1,11 @@
 <template>
   <div class="main">
-    <el-row >
+    <el-row>
       <el-col :span="12" class="header-nav">
-        <el-menu :default-active="activeIndex" class="el-menu-demo header-nav" mode="horizontal" @select="handleSelect" >
-          <el-menu-item index="1">处理中心</el-menu-item>
+        <el-menu :default-active="headerNavVal" class="el-menu-demo header-nav" mode="horizontal" >
+          <el-menu-item index="1">
+            {{ appName}}
+          </el-menu-item>
           <el-submenu index="2">
             <template slot="title">我的工作台</template>
             <el-menu-item index="2-1">选项1</el-menu-item>
@@ -16,47 +18,46 @@
               <el-menu-item index="2-4-3">选项3</el-menu-item>
             </el-submenu>
           </el-submenu>
-          <el-menu-item index="3" disabled>消息中心</el-menu-item>
-          <el-menu-item index="4">
-            <a href="https://www.ele.me" target="_blank">订单管理</a>
-          </el-menu-item>
+           <el-submenu index="3">
+            <template slot="title">我</template>
+            <el-menu-item index="3-1">退出</el-menu-item>
+            <el-menu-item index="3-2">个人中心</el-menu-item>
+          </el-submenu>
+          <el-radio-group v-model="isCollapse"  style="margin-bottom: 20px; position:absolute;right:10px;top:10px;">
+              <el-radio-button :label="false">开</el-radio-button>
+              <el-radio-button :label="true">关</el-radio-button>
+            </el-radio-group>
         </el-menu>
       </el-col>
     </el-row>
+
     <el-row class="tac content-nav">
-      <el-col :span="4" class="content-nav">
-        <el-menu default-active="2" class="el-menu-vertical-demo content-nav" @open="handleOpen" @close="handleClose">
+      <el-col :span="4" class=" content-nav">
+        <!-- 使用导航的时候需要设置router值为true -->
+        <el-menu :router="true" :default-active="navVal" class="el-menu-vertical-demo" :collapse="isCollapse" >
           <el-submenu index="1">
             <template slot="title">
-              <i class="el-icon-location"></i>
-              <span>导航一</span>
+              <i class="fa fa-reorder"></i>
+              <span>&#X3000; 分类管理</span>
             </template>
-            <el-menu-item-group>
-              <template slot="title">分组一</template>
-              <el-menu-item index="1-1">选项1</el-menu-item>
-              <el-menu-item index="1-2">选项2</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-              <el-menu-item index="1-3">选项3</el-menu-item>
-            </el-menu-item-group>
-            <el-submenu index="1-4">
+            <el-menu-item index="1-1" :route="{name:'TypeList'}" @click="changeNav('1-1')">分类列表</el-menu-item>
+            <el-menu-item index="1-2" :route="{name:'TypeEditor'}" @click="changeNav('1-2')">分类编辑</el-menu-item>
+          </el-submenu>
+          <el-submenu index="2">
+            <template slot="title">
+              <i class="fa fa-file"></i>
+              <span>&#X3000; 文章管理</span>
+            </template>
+            <el-menu-item index="2-1" :route="{name:'BlogList'}" @click="changeNav('2-1')">文章列表</el-menu-item>
+            <el-submenu index="2-2">
               <template slot="title">选项4</template>
-              <el-menu-item index="1-4-1">选项1</el-menu-item>
+              <el-menu-item index="2-2-1" :route="{name:'BlogEditor'}" @click="changeNav('2-2-1')">选项2-2-1</el-menu-item>
             </el-submenu>
           </el-submenu>
-          <el-menu-item index="2">
-            <i class="el-icon-menu"></i>
-            <span slot="title">导航二</span>
-          </el-menu-item>
-          <el-menu-item index="3" disabled>
-            <i class="el-icon-document"></i>
-            <span slot="title">导航三</span>
-          </el-menu-item>
-          <el-menu-item index="4">
-            <i class="el-icon-setting"></i>
-            <span slot="title">导航四</span>
-          </el-menu-item>
         </el-menu>
+      </el-col>
+      <el-col :span="20">
+        <router-view/>
       </el-col>
     </el-row>
 
@@ -64,22 +65,23 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+import { mapMutations } from 'vuex'
 export default {
   data() {
     return {
-      activeIndex: "1"
+      isCollapse: false
     };
   },
+  created() {},
+  computed: {
+    ...mapState("app", ["navVal","headerNavVal","appName"]),
+  },
+  mounted() {},
   methods: {
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
-    }
+      ...mapMutations({
+      changeNav:  'app/changeNav' // 将 `this.add()` 映射为 `this.$store.commit('increment')`
+    })
   }
 };
 </script>
@@ -88,17 +90,19 @@ export default {
 <style lang="less">
 html,
 body {
- height: 100% !important;
-  background: white;
-  .main{
-    height:calc(100% - 61px);
-    .header-nav{
-  width: 100% !important;
-}
-.content-nav{
   height: 100% !important;
-}
+  background: white;
+  .main {
+    height: calc(100% - 61px);
+    .header-nav {
+      width: 100% !important;
+    }
+    .content-nav {
+      height: 100% !important;
+      ul{
+         height: 100% !important;
+      }
+    }
   }
 }
-
 </style>

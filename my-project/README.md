@@ -38,4 +38,7 @@ npm install qs
 
 #install js-md5
 npm install --save js-md5
+
+#install vuex
+npm install vuex --save
 ```

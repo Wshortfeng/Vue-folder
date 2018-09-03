@@ -4,6 +4,10 @@ import utils from '@/utils/utils'
 
 import Main from '@/view/main/index'
 import Login from '@/view/login/index'
+import TypeList from '@/view/type_list/TypeList'
+import TypeEditor from '@/view/type_list/TypeEditor'
+import BlogList from '@/view/blog_list/BlogList'
+import BlogEditor from '@/view/blog_list/BlogEditor'
 
 Vue.use(Router)
 
@@ -21,18 +25,26 @@ const router = new Router({
         name: 'Main',
         component: Main,
         children: [{
-            path: 'cat', // 在子路由拼接的时候不加斜杠
-            name: 'HelloCat',
-            component: {
-                template: `<h1>我是cat子路由</h1>`
+                path: '',
+                name: 'TypeList',
+                component: TypeList,
+            },
+            {
+                path: 'type_editor',
+                name: 'TypeEditor',
+                component: TypeEditor,
+            },
+            {
+                path: 'blog_list',
+                name: 'BlogList',
+                component: BlogList,
+            },
+            {
+                path: 'blog_editor',
+                name: 'BlogEditor',
+                component: BlogEditor,
             }
-        }, {
-            path: 'dog',
-            name: 'HelloDog',
-            component: {
-                template: `<h1>我是dog子路由</h1>`
-            }
-        }],
+        ],
         meta: {
             // 路由元信息,可以用于页面的登陆验证
             needLogin: true, // 需要登陆

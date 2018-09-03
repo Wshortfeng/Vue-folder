@@ -35,7 +35,17 @@ export default {
       login: {
         name: "",
         password: ""
-      }
+      },
+      rules: {
+        name: [
+          { required: true, message: '手机号不能为空' },
+          { min: 11, max: 11, message: '手机号11个字符' },
+        ],
+        password: [
+          { required: true, message: '密码不能为空' },
+          { min: 6, max: 10, message: '密码6~10个字符' },
+        ],
+      },
     };
   },
   mounted() {},
@@ -55,7 +65,7 @@ export default {
         .then(res => {
           if (res.code == 200) {
             let token = res.data.token;
-            this.$utils.setCookie("TokenKey", token);
+            this.$utils.setCookie("TokenKey", token,1);
               this.$toaster.ok('登录成功')
             this.$router.push({ path: "/" });
           } else {
