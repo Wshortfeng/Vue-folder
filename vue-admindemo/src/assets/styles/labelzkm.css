@@ -1,0 +1,609 @@
+.ql-toolbar.ql-snow {
+  padding: 0;
+  text-align: left;
+}
+.ql-snow .ql-picker {
+  line-height: 24px;
+}
+.ql-snow .ql-picker.ql-size {
+  width: 80px;
+}
+.ql-editor.ql-blank::before {
+  color: #c0c4cc;
+  font-size: 12px;
+  font-style: normal;
+}
+.ql-container {
+  height: 200px;
+}
+.el-input__inner {
+  border-radius: 2px;
+}
+.el-table__fixed::before {
+  background-color: #cec9c9 !important;
+}
+.mengcengnei {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.ql-snow .ql-color-picker .ql-picker-label svg,
+.ql-snow .ql-icon-picker .ql-picker-label svg {
+  float: left;
+}
+.el-input-number {
+  width: 100%;
+}
+.myproject-main .nav-box ul {
+  border-color: #e5e0e0 !important;
+}
+.myproject-main .nav-box ul li {
+  color: #666;
+  border-color: #e5e0e0 !important;
+}
+.myproject-main .nav-box ul li.selectNav {
+  color: #fff;
+}
+.el-button.operation_btn1 {
+  border-color: #7c7c7c;
+}
+.el-button {
+  border-radius: 2px;
+  border-color: #5A7CD0;
+}
+.projectlist .listcontent {
+  border-color: #cec9c9 !important;
+}
+.projectlist .listcontent .el-table--border::after {
+  background-color: transparent !important;
+}
+.projectlist .listcontent th:nth-child(4),
+.projectlist .listcontent td:last-child {
+  border-right: none;
+}
+.el-table--border::before {
+  background-color: #cec9c9 !important;
+}
+.el-table--border::after {
+  background-color: #cec9c9 !important;
+}
+.el-table::before {
+  border-color: #cec9c9 !important;
+}
+.el-table {
+  border-color: #cec9c9 !important;
+}
+.el-table__body-wrapper {
+  border-color: #cec9c9 !important;
+}
+table {
+  border-color: #cec9c9 !important;
+}
+table tr {
+  border-color: #cec9c9 !important;
+}
+table tr th,
+table tr td {
+  text-align: center;
+  border-color: #cec9c9 !important;
+}
+table tr th .el-button,
+table tr td .el-button {
+  border: none;
+}
+table tr th .cell,
+table tr td .cell {
+  white-space: nowrap;
+  width: 100%;
+  /* IE6 需要定义宽度 */
+  overflow: hidden;
+  font-size: 16px;
+  font-weight: normal;
+}
+table tr th .cell p,
+table tr td .cell p {
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+table tbody {
+  border-color: #cec9c9 !important;
+}
+table tbody td .cell {
+  font-size: 14px;
+  color: #666;
+}
+.deepbackground table {
+  border-color: #F5F8FA !important;
+}
+.deepbackground table tr {
+  border-color: #F5F8FA !important;
+}
+.deepbackground table tr th,
+.deepbackground table tr td {
+  border-color: #F5F8FA !important;
+}
+.deepbackground table tbody {
+  border-color: #F5F8FA !important;
+}
+.deepbackground table tbody td .cell {
+  color: #fff;
+}
+.dialogQualifica-condition {
+  width: 260px;
+  float: left;
+  overflow: hidden;
+}
+.qualification {
+  margin-left: 10px;
+  color: #606266;
+}
+.project-details {
+  color: #606266;
+}
+.el-pagination {
+  float: right;
+  margin-top: 10px;
+}
+.label-tool {
+  height: 740px;
+  width: 100%;
+  background: #004080;
+  padding: 20px;
+}
+.label-tool .label-tool-left {
+  width: 970px;
+  height: 660px;
+  float: left;
+  border: 1px solid #6985A5;
+  border-radius: 4px;
+}
+.label-tool .label-tool-left .left-top {
+  height: 52px;
+  width: 100%;
+  background: #004080;
+  border-bottom: 1px solid #6985A5;
+  border-radius: 2px;
+}
+.label-tool .label-tool-left .left-top .left-top-projectinfo {
+  width: 330px;
+  height: 50px;
+  float: left;
+  color: #7a7a7a;
+  text-align: center;
+  position: relative;
+  background: #fff;
+}
+.label-tool .label-tool-left .left-top .left-top-projectinfo .projectname {
+  cursor: pointer;
+  line-height: 22px;
+}
+.label-tool .label-tool-left .left-top .left-top-projectinfo .projectname span {
+  font-size: 13px;
+}
+.label-tool .label-tool-left .left-top .left-top-projectinfo .left-top-projectlistnr {
+  position: absolute;
+  top: 0;
+}
+.label-tool .label-tool-left .left-top .left-top-projectinfo .left-top-projectlistnr .left-top-projectlist {
+  position: absolute;
+  top: 51px;
+  left: 0px;
+  width: 330px;
+  max-height: 610px;
+  overflow-y: auto;
+  z-index: 11;
+  border-radius: 4px;
+  border: 1px solid #fff;
+}
+.label-tool .label-tool-left .left-top .left-top-projectinfo .left-top-projectlistnr .left-top-projectlist .el-menu-vertical-demo {
+  border: none;
+}
+.label-tool .label-tool-left .left-top .left-top-projectinfo .left-top-projectlistnr .left-top-projectlist .el-menu-vertical-demo .el-submenu__title {
+  height: 50px !important;
+  border-bottom: 1px solid #fff;
+  line-height: 50px !important;
+  border-radius: 4px;
+  padding: 0 0 0 5px !important;
+}
+.label-tool .label-tool-left .left-top .left-top-projectinfo .left-top-projectlistnr .left-top-projectlist .el-menu-vertical-demo .el-submenu__title i {
+  color: #fff;
+  font-size: 16px;
+  right: 7px;
+}
+.label-tool .label-tool-left .left-top .left-top-projectinfo .left-top-projectlistnr .left-top-projectlist .el-menu-vertical-demo .el-submenu__title span {
+  font-size: 12px;
+  color: #fff;
+  float: left;
+  cursor: pointer;
+}
+.label-tool .label-tool-left .left-top .left-top-projectinfo .left-top-projectlistnr .left-top-projectlist .el-menu-vertical-demo .el-submenu__title a {
+  width: 55px;
+  height: 32px;
+  background: #fff;
+  color: #5A7CD0;
+  border-radius: 2px;
+  text-align: center;
+  line-height: 30px;
+  float: left;
+  margin-top: 10px;
+  margin-left: 10px;
+  font-size: 12px;
+}
+.label-tool .label-tool-left .left-top .left-top-projectinfo .left-top-projectlistnr .left-top-projectlist .el-menu-vertical-demo .el-menu--inline .el-menu-item {
+  border-bottom: 1px solid #fff;
+  border-radius: 4px;
+}
+.label-tool .label-tool-left .left-top .left-top-projectinfo .left-top-projectlistnr .left-top-projectlist .el-menu-vertical-demo .el-menu--inline .el-menu-item:last-child {
+  border: none;
+}
+.label-tool .label-tool-left .left-top .left-top-projectinfo .left-top-projectlistnr .left-top-projectlist .rw-list {
+  height: 52px;
+  border: 1px solid #F1EEEE;
+  padding: 0 10px;
+  line-height: 50px;
+  border-radius: 4px;
+  background: #004080;
+}
+.label-tool .label-tool-left .left-top .left-top-projectinfo .left-top-projectlistnr .left-top-projectlist .rw-list span {
+  font-size: 12px;
+  color: #fff;
+  float: left;
+  cursor: pointer;
+}
+.label-tool .label-tool-left .left-top .left-top-projectinfo .left-top-projectlistnr .left-top-projectlist .rw-list a {
+  width: 55px;
+  height: 32px;
+  background: #fff;
+  color: #5A7CD0;
+  border-radius: 2px;
+  text-align: center;
+  line-height: 30px;
+  float: right;
+  margin-top: 10px;
+  font-size: 12px;
+}
+.label-tool .label-tool-left .left-top .left-top-projectinfo .left-top-projectlistnr .left-top-projectlist .color span {
+  color: #53A7A4;
+}
+.label-tool .label-tool-left .left-top .left-top-labelname {
+  padding: 0;
+}
+.label-tool .label-tool-left .left-top .left-top-labelname a {
+  width: 80px;
+  height: 50px;
+  float: left;
+  line-height: 48px;
+  border-left: 1px solid #E7E4E4;
+  border-radius: 2px;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+}
+.label-tool .label-tool-left .left-top .left-top-labelname a.color {
+  color: #5A7CD0;
+  background: #fff;
+  border: none;
+}
+.label-tool .label-tool-left .left-top2-listb {
+  height: 40px;
+  position: relative;
+  border-bottom: 1px solid #fff;
+  overflow: hidden;
+  width: 100%;
+}
+.label-tool .label-tool-left .left-top2-listb .el-icon-arrow-right {
+  color: #fff;
+  font-size: 24px;
+  position: absolute;
+  top: 8px;
+  right: 5px;
+  cursor: pointer;
+}
+.label-tool .label-tool-left .left-top2-listb .el-icon-arrow-left {
+  color: #fff;
+  font-size: 24px;
+  position: absolute;
+  top: 8px;
+  right: 30px;
+  cursor: pointer;
+}
+.label-tool .label-tool-left .left-top2-listb .left-top2-list {
+  height: 60px;
+  border-bottom: 1px solid #fff;
+  padding: 0 10px;
+  line-height: 38px;
+  overflow: auto;
+  width: 94%;
+}
+.label-tool .label-tool-left .left-top2-listb .left-top2-list ul {
+  height: 38px;
+  white-space: nowrap;
+}
+.label-tool .label-tool-left .left-top2-listb .left-top2-list ul li {
+  position: relative;
+  height: 38px;
+  display: inline-block;
+  color: #fff;
+  margin-right: 20px;
+}
+.label-tool .label-tool-left .left-top2-listb .left-top2-list ul li img {
+  height: 15px;
+  width: 15px;
+  float: left;
+  margin-top: 12px;
+  margin-right: 5px;
+}
+.label-tool .label-tool-left .left-top2-listb .left-top2-list ul .color {
+  color: #5a7cd4;
+}
+.label-tool .label-tool-left .label-tool-image {
+  height: 440px;
+  margin: 10px 0;
+}
+.label-tool .label-tool-left .label-tool-image .imageLabel-box.imageLabel-box-active {
+  width: 90%;
+  margin: 0 auto;
+  position: static;
+  background: #004080;
+  z-index: 1;
+  transform: none;
+}
+.label-tool .label-tool-left .label-tool-image .imageLabel-box {
+  width: 90%;
+  margin: 0 auto;
+  position: static;
+  background: #004080;
+  z-index: 1;
+  transform: none;
+}
+.label-tool .label-tool-left .label-tool-image .imageLabel-box .imageLabel-img-boxs {
+  width: auto;
+}
+.label-tool .label-tool-left .label-tool-image .imageLabel-box .imageLabel-content img.imageLabel-imgdrop {
+  width: 15px;
+  height: 15px;
+  background: none;
+  border: none;
+}
+.label-tool .label-tool-left .label-tool-imagenot {
+  height: 580px;
+}
+.label-tool .label-tool-left .label-tool-imagenot .imageLabel-content {
+  cursor: auto;
+}
+.label-tool .label-tool-left .label-tool-imagenot .imageLabel-content img {
+  width: 15px;
+  height: 15px;
+}
+.label-tool .label-tool-left .problemnr {
+  width: 100%;
+  color: #fff;
+  padding: 0 20px;
+}
+.label-tool .label-tool-left .problemnr .problemnr-answer,
+.label-tool .label-tool-left .problemnr .problemnr-choice {
+  width: 750px;
+  float: left;
+}
+.label-tool .label-tool-left .problemnr .problemnr-answer .el-checkbox-group,
+.label-tool .label-tool-left .problemnr .problemnr-choice .el-checkbox-group {
+  padding-left: 15px;
+}
+.label-tool .label-tool-left .problemnr .problemnr-answer .el-checkbox-group .el-checkbox__label,
+.label-tool .label-tool-left .problemnr .problemnr-choice .el-checkbox-group .el-checkbox__label {
+  color: #fff;
+}
+.label-tool .label-tool-left .problemnr .problemnr-answer textarea,
+.label-tool .label-tool-left .problemnr .problemnr-choice textarea {
+  background: none;
+  color: #fff;
+  margin-top: 5px;
+  width: 80%;
+  height: 60px;
+}
+.label-tool .label-tool-left .problemnr .problem-page {
+  float: right;
+  margin-top: 65px;
+}
+.label-tool .label-tool-left .problemnr .problem-page a {
+  width: 50px;
+  height: 30px;
+  text-align: center;
+  line-height: 28px;
+  border-radius: 2px;
+  border: 1px solid #fff;
+  margin-left: 20px;
+  display: inline-block;
+}
+.label-tool .label-tool-right {
+  width: 170px;
+  height: 660px;
+  float: right;
+  border: 1px solid #6985A5;
+  border-radius: 2px;
+  position: relative;
+}
+.label-tool .label-tool-right .right-title {
+  text-align: center;
+  border-bottom: 1px solid #fff;
+  color: #fff;
+  margin-top: 10px;
+  line-height: 30px;
+}
+.label-tool .label-tool-right .right-listnr {
+  width: 100%;
+  position: absolute;
+}
+.label-tool .label-tool-right .right-listnr .right-list {
+  margin-top: 10px;
+  padding: 0 10px;
+  height: 515px;
+  overflow: auto;
+}
+.label-tool .label-tool-right .right-listnr .right-list p {
+  color: #fff;
+  margin-top: 10px;
+  line-height: 30px;
+}
+.label-tool .label-tool-right .right-listnr .right-list .right-list-img {
+  margin-bottom: 10px;
+}
+.label-tool .label-tool-right .right-listnr .right-list .right-list-img .right-list-name {
+  float: left;
+  color: #fff;
+  margin: 5px 10px 0 0;
+}
+.label-tool .label-tool-right .right-listnr .right-list .right-list-img img {
+  width: 15px;
+  height: 15px;
+  float: left;
+  margin: 8px 10px 0 0;
+}
+.label-tool .label-tool-right .right-listnr .right-list .right-list-img ul {
+  overflow: hidden;
+  clear: both;
+  padding-left: 10px;
+}
+.label-tool .label-tool-right .right-listnr .right-list .right-list-img ul li span {
+  line-height: 30px;
+  overflow: hidden;
+  font-size: 12px;
+  color: #E7EDF3;
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  float: left;
+  width: 110px;
+}
+.label-tool .label-tool-right .right-listnr .right-list .right-list-img ul li img {
+  float: right;
+  cursor: pointer;
+}
+.label-tool .label-tool-right .subitles {
+  padding: 515px 10px 0;
+}
+.label-tool .label-tool-right .subitles p {
+  color: #fff;
+  margin-top: 10px;
+  line-height: 30px;
+}
+.label-tool .label-tool-right .subitles .look-answer {
+  width: 130px;
+  height: 32px;
+  display: block;
+  text-align: center;
+  line-height: 30px;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 2px;
+  margin: 10px auto;
+}
+.label-tool .label-tool-bottom {
+  text-align: right;
+  padding-top: 15px;
+  float: right;
+}
+.label-tool .label-tool-bottom a {
+  line-height: 30px;
+  text-align: center;
+  padding: 0 15px;
+  display: inline-block;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 2px;
+  margin-left: 25px;
+}
+.applicaproject-content {
+  min-height: 700px;
+  width: 600px;
+  margin: 0 auto;
+}
+.applicaproject-content .applicaproject-title {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.applicaproject-content .apppro-con-ul li {
+  margin-bottom: 20px;
+}
+.applicaproject-content .apppro-con-ul li .el-select {
+  display: block;
+}
+.applicaproject-content .apppro-con-ul li .apppro-con-ul-leftspan {
+  width: 150px;
+  text-align: right;
+  display: inline-block;
+}
+.applicaproject-content .apppro-con-ul li .apppro-con-ul-leftspan .apppro-con-ul-xing {
+  color: red;
+}
+.applicaproject-content .apppro-con-ul li .apppro-con-ul-rightdiv {
+  width: 400px;
+  display: inline-block;
+}
+.applicaproject-content .apppro-con-ul li .apppro-con-ul-rightdiv .image-rule {
+  color: #999;
+  display: block;
+  margin-bottom: 30px;
+}
+.applicaproject-content .apppro-con-ul li .apppro-con-ul-rightdiv .avatar-uploader {
+  float: left;
+  margin-right: 20px;
+}
+.applicaproject-content .apppro-con-ul li .apppro-con-ul-rightdiv .avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.applicaproject-content .apppro-con-ul li .apppro-con-ul-rightdiv .avatar-uploader .el-upload:hover {
+  border-color: #409EFF;
+}
+.applicaproject-content .apppro-con-ul li .apppro-con-ul-rightdiv .avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+}
+.applicaproject-content .apppro-con-ul li .apppro-con-ul-rightdiv .avatar {
+  width: 100px;
+  height: 100px;
+  display: block;
+}
+.applicaproject-content .apppro-button {
+  margin: 0 auto;
+  display: block;
+}
+.applicaproject-content .apppro-button span {
+  color: #fff;
+}
+.deepbackground .el-scrollbar__thumb {
+  background-color: #909399;
+}
+.application {
+  min-height: 670px;
+  padding-bottom: 30px;
+}
+.application .application-con-ul {
+  width: 600px;
+  margin: 40px auto;
+}
+.application .application-con-ul li {
+  margin-bottom: 20px;
+}
+.application .application-con-ul li .el-select {
+  display: block;
+}
+.application .application-button {
+  text-align: center;
+}
+.application .application-button .el-button {
+  width: 120px;
+}

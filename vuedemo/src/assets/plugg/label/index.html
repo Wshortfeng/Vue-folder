@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery自定义图片区域标注代码</title>
+
+    <link rel="stylesheet" href="styles/jquery.imageLabel.min.css">
+    <link rel="stylesheet" href="styles/edit.css">
+
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0
+    }
+    
+    .top-tab {
+        background-color: #333;
+        padding: 10px;
+        margin-bottom: 50px
+    }
+    
+    .top-tab a {
+        display: flex;
+        align-items: center;
+        color: #fff
+    }
+    
+    #imgform {
+        margin: 0 auto;
+        width: 500px
+    }
+    /* .imageLable-i-s {
+        display: none;
+    } */
+</style>
+
+<body>
+
+    <!-- <form action="" id="imgform">
+        <p>图片链接:</p>
+        <input type="text" name="src" value="build.jpg" style="display:block;width:100%;height:30px">
+        <button class="addpic" type="submit" disabled="disabled" style="margin-top:10px;padding:10px;width:100%">点击标注图片</button>
+    </form> -->
+    <script src="scripts/jquery.js"></script>
+    <script src="scripts/jquery.imageLabel.min.js"></script>
+    <script>
+        $(function() {
+
+            window.c = imageLabel({
+                img: ' build.jpg',
+                editPop: !0,
+                close: function(t) {
+                    return t.length && alert(JSON.stringify(t)), !0
+                },
+                clickArea: function() {},
+                edit: function(t) {},
+                startArea: function() {},
+                confirm: function(t) {
+                    return t.length && alert(JSON.stringify(t)), !0
+                }
+            })
+            for (var a = 1; a < 3; a++) {
+                var s = $('<div class="imageLabel-imgdrop ' + ('111' ? "imageLabel-drop-has" : "") + '"><span class="imageLabel-imgdrop-font">' + ('111' || "") + '</span><div class="imageLable-i-s"></div></div>');
+                for (var t = 0; t < 4; t++) s.append('<em class="imageLable-em">');
+                s.css({
+                    left: 32.984 + "%",
+                    top: 35.7 + "%",
+                    width: 30 + "%",
+                    height: 12 + "%"
+                }).attr("data-json", JSON.stringify({
+                    x: 0.32984790874524716,
+                    y: 0.35703422053231937,
+                    ex: 0.6131178707224335,
+                    ey: 0.4665399239543726
+                })), $(".imageLabel-content").append(s)
+                for (var i = 0; i < 8; i++) $(".imageLabel-content").find(".imageLable-i-s").append('<i class="imageLable-i">');
+            }
+        })
+    </script>
+
+    <div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+        <p>适用浏览器：360、FireFox、Chrome、Opera、傲游、搜狗、世界之窗. 不支持Safari、IE8及以下浏览器。</p>
+        <p>来源：<a href="http://www.lanrenzhijia.com/" target="_blank">懒人</a></p>
+    </div>
+</body>
+
+</html>

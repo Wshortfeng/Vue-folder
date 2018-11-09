@@ -52,7 +52,7 @@ Vuex 并不限制你的代码结构。但是，它规定了一些需要遵守的
 ``` bash
 # 查看版本
 $ npm -v
-2.3.0
+6.1.0
 
 #升级 npm
 cnpm install npm -g
