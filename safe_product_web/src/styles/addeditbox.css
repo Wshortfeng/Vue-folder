@@ -1,0 +1,15 @@
+.addeditbox .el-dialog__title {
+  font-size: 20px;
+}
+
+.addeditbox .el-dialog--center .el-dialog__body {
+  padding: 20px 60px 0 40px;
+}
+
+.addeditbox .el-dialog--center .el-dialog__body .el-select {
+  width: 100%;
+}
+
+.addeditbox .el-dialog__footer .el-button:nth-child(2) {
+  margin-left: 80px;
+}

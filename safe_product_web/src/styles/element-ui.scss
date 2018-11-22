@@ -1,0 +1,155 @@
+ //to reset element-ui default css
+ .el-upload {
+     input[type="file"] {
+         display: none !important;
+     }
+ }
+ 
+ .el-upload__input {
+     display: none;
+ }
+ 
+ //暂时性解决diolag 问题 https://github.com/ElemeFE/element/issues/2461
+ .el-dialog {
+     transform: none;
+     left: 0;
+     position: relative;
+     margin: 0 auto;
+ }
+ 
+ //element ui upload
+ .upload-container {
+     .el-upload {
+         width: 100%;
+         .el-upload-dragger {
+             width: 100%;
+             height: 200px;
+         }
+     }
+ }
+ 
+ // element ui button
+ //按钮
+ .el-button--default {
+     color: $color1 !important;
+     background: $color2 !important;
+     border-color: $color1 !important;
+ }
+ 
+ .el-button--primary {
+     background: $color1 !important;
+     color: $color2 !important;
+     border-color: $color1 !important;
+ }
+ 
+ .el-button--text {
+     color: $color1 !important;
+ }
+ 
+ .el-button {
+     border-radius: $borderRadius;
+ }
+ 
+ //element ui input
+ .el-input__inner {
+     border-radius: $borderRadius !important;
+     border-color: $color8;
+ }
+ 
+ .el-form-item__label {
+     font-size: $fontSize2 !important;
+     color: $fontSizeMinTitle;
+ }
+ 
+ // element ui textarea
+ .el-textarea__inner {
+     resize: none !important;
+     font-family: $fontFamily;
+     border-radius: $borderRadius !important;
+     border-color: $color8 !important;
+ }
+ 
+ //element ui pagination
+ .pagination-box {
+     height: 40px;
+ }
+ 
+ .el-pagination {
+     background: white;
+     padding: 0 !important;
+     .el-pager {
+         .active {
+             background: $color1 !important;
+             border-radius: $borderRadius !important;
+         }
+     }
+ }
+ 
+ .el-pagination.is-background .btn-prev {
+     margin-left: 0;
+     height: 30px;
+ }
+ 
+ .el-pagination.is-background .btn-next {
+     margin-right: 0 !important;
+     height: 30px;
+ }
+ 
+ .el-pagination.is-background .btn-next,
+ .el-pagination.is-background .btn-prev,
+ .el-pagination.is-background .el-pager li {
+     background: #fff;
+     border: 1px solid#E4E4E4;
+     border-radius: $borderRadius;
+     margin-left: 0px;
+ }
+ 
+ .el-pagination.is-background .el-pager li:not(.disabled).active {
+     border-radius: $borderRadius;
+     border: 1px solid$color1;
+ }
+ 
+ .el-pager li {
+     height: 30px;
+ }
+ 
+ //element ui select
+ .el-select-dropdown.is-multiple {
+     width: 660px !important;
+ }
+ 
+ //element ui table
+ .el-table--border::before {
+     background-color: $color8 !important;
+ }
+ 
+ .el-table--border::after {
+     background-color: $color8 !important;
+ }
+ 
+ .el-table::before {
+     border-color: $color8 !important;
+ }
+ 
+ .el-table {
+     border-color: $color8 !important;
+ }
+ 
+ .el-table__body-wrapper {
+     border-color: $color8 !important;
+ }
+ 
+ table {
+     border-color: $color8 !important;
+     tr {
+         border-color: $color8 !important;
+         th,
+         td {
+             text-align: center;
+             border-color: $color8 !important;
+         }
+     }
+     tbody {
+         border-color: $color8 !important;
+     }
+ }
