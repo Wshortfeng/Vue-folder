@@ -158,7 +158,7 @@ export default {
 .login-content {
   height: 100%;
   text-align: center;
-  background: url("../../assets/img/login_bg.png") no-repeat !important;
+  background: url("../../assets/img/login_bg.jpg") no-repeat !important;
   background-size: cover !important;
   .login-main {
     height: 100%;
