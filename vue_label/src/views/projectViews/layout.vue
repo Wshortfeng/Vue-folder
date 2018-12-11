@@ -113,12 +113,13 @@ export default {
     },
 
     loginOut() {
-      this.$toaster.ok("退出成功");
+      // this.$toaster.ok("退出成功");
       this.$utils.delAllStorage();
       this.$utils.delAllSession();
-      this.$router.push({
-        name: "Login"
-      });
+      // this.$router.push({
+      //   name: "Login"
+      // });
+      location.reload();
     },
     goTo(name) {
       this.changeNav();

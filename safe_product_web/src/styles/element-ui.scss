@@ -115,7 +115,10 @@
  
  //element ui select
  .el-select-dropdown.is-multiple {
-     width: 660px !important;
+     .max-width {
+         display: inline-block;
+         width: 620px !important;
+     }
  }
  
  //element ui table

@@ -85,17 +85,7 @@ body {
             $background1 0%,
             $background4 100%
           );
-          .el-scrollbar {
-            height: 100%;
-            ul {
-              background: linear-gradient(
-            to right,
-            $background1 0%,
-            $background4 100%
-          );
-              height: 100%;
-              text-align: center;
-              .user-info {
+           .user-info {
                 height: 130px;
                 border-radius: 5px;
                 border: 1px solid $color2;
@@ -124,6 +114,17 @@ body {
                   }
                 }
               }
+          .el-scrollbar {
+            height: calc(100% - 180px);
+            ul {
+              background: linear-gradient(
+            to right,
+            $background1 0%,
+            $background4 100%
+          );
+              height: 100%;
+              text-align: center;
+
               li {
                 color: white;
                 margin: 10px 0px;
@@ -185,6 +186,7 @@ body {
     width: 100px;
     text-align: left;
     margin-left: 10px;
+    font-weight: bold;
   }
   .el-submenu {
     .el-menu {
@@ -211,6 +213,7 @@ body {
     display: inline-block;
     position: relative;
     margin-right:5px;
+    top:1px;
 }
 
 .video_icon {

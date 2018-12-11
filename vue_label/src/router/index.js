@@ -983,31 +983,32 @@ router.beforeEach((to, from, next) => { //导航守卫
     }
     if (to.meta.needLogin) {
         if (utils.getToken() == undefined || utils.getToken() == '') {
-            next('login')
+            next({ path: '/login' })
         } else {
-            store.dispatch('user/checkToken').then(res => {
-                if (res.code == 200) {
+            // store.dispatch('user/checkToken').then(res => {
+            //     if (res.code == 200) {
 
-                } else {
-                    utils.delAllStorage()
-                    next({ path: '/login' })
-                }
-            })
+            //     } else {
+            //         utils.delAllStorage()
+            //         utils.delAllSession();
+            //         location.reload() // 为了重新实例化vue-router对象 避免bug
+            //     }
+            // })
             if (to.meta.role == 'label') {
                 if (utils.getStorage('userType') == 1) {
-                    next('login')
+                    next({ path: '/login' })
                 } else if (utils.getStorage('userType') == 2) {
                     next()
                 } else {
-                    next('login')
+                    next({ path: '/login' })
                 }
             } else if (to.meta.role == 'project') {
                 if (utils.getStorage('userType') == 1) {
                     next()
                 } else if (utils.getStorage('userType') == 2) {
-                    next('login')
+                    next({ path: '/login' })
                 } else {
-                    next('login')
+                    next({ path: '/login' })
                 }
             }
             next()

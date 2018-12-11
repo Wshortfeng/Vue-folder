@@ -42,11 +42,17 @@ export function read(val) {
     return val.replace(/<[^>]*>/g).replace(/undefined/g, '').replace(/&lt;/g, '').replace(/\//g, '').replace(/em&gt;/g, '').replace(/u&gt;/g, '').substring(0, 80) + '...'; //去除文字的<...></...>标签
 }
 
-export function batchstate(val) { //项目方批次状态
-    if (val == 0) {
-        return '待分配'
-    } else if (val <= 5) {
-        return '进行中'
+export function labelbatchstate(val) { //标注方批次状态
+    if (val == 1) {
+        return '待提交'
+    } else if (val == 2) {
+        return '待初审'
+    } else if (val == 3) {
+        return '初审未通过'
+    } else if (val == 4) {
+        return '待复审'
+    } else if (val == 5) {
+        return '复审未通过'
     } else if (val == 6) {
         return '待验收'
     } else if (val == 7) {
@@ -66,64 +72,67 @@ export function batchstate(val) { //项目方批次状态
     }
 }
 
-export function labelbatchstate(val) { //标注方批次状态
+export function batchtaskstate(val) { //标注或审核任务（疑难杂症）状态
     if (val == 1) {
         return '待提交'
     } else if (val == 2) {
-        return '审核中'
+        return '待审核'
     } else if (val == 3) {
-        return '初审未通过'
-    } else if (val == 4) {
-        return '待复审'
+        return '待初审'
+    }else if (val == 4) {
+        return '初审已通过'
     } else if (val == 5) {
-        return '复审未通过'
+        return '初审未通过'
     } else if (val == 6) {
-        return '待验收'
+        return '待复审'
     } else if (val == 7) {
-        return '验收不通过'
+        return '复审已通过'
     } else if (val == 8) {
-        return '待仲裁'
+        return '复审未通过'
     } else if (val == 9) {
-        return '待结算'
+        return '待会诊'
     } else if (val == 10) {
-        return '完成'
+        return '待验收'
     } else if (val == 11) {
-        return '失败'
+        return '验收已通过'
     } else if (val == 12) {
-        return '过期'
+        return '验收未通过'
     } else if (val == 13) {
-        return '放弃'
+        return '待仲裁'
+    } else if (val == 14) {
+        return '待结算'
+    } else if (val == 15) {
+        return '已完成'
+    } else if (val == 16) {
+        return '已过期'
+    } else if (val == 17) {
+        return '已放弃'
+    } else if (val == 18) {
+        return '已失败'
     }
 }
-
-export function batchtaskstate(val) { //疑难杂症任务状态
-    if (val == -1) {
-        return '待提交'
-    } else if (val == 0) {
+export function batchtaskstate1(val) { //项目方批次详情任务状态
+    if (val == 0) {
         return '待分配'
-    } else if (val == 1) {
-        return '待初审'
-    } else if (val == 2) {
-        return '初审未通过'
-    } else if (val == 3) {
-        return '待复审'
-    } else if (val == 4) {
-        return '待会诊'
-    } else if (val == 5) {
-        return '待验收'
-    } else if (val == 6) {
-        return '验收未通过'
-    } else if (val == 7) {
-        return '待仲裁'
-    } else if (val == 8) {
-        return '待结算'
-    } else if (val == 9) {
-        return '已完成'
+    } else if (val < 9) {
+        return '进行中'
     } else if (val == 10) {
-        return '已过期'
+        return '待验收'
     } else if (val == 11) {
-        return '已放弃'
+        return '验收已通过'
     } else if (val == 12) {
+        return '验收未通过'
+    } else if (val == 13) {
+        return '待仲裁'
+    } else if (val == 14) {
+        return '待结算'
+    } else if (val == 15) {
+        return '已完成'
+    } else if (val == 16) {
+        return '已过期'
+    } else if (val == 17) {
+        return '已放弃'
+    } else if (val == 18) {
         return '已失败'
     }
 }
@@ -211,16 +220,6 @@ export function labelTaskStatus(val) { //任务标注完成状态
         return '（草稿）'
     } else if (val == 3) {
         return '（已完成）'
-    }
-}
-
-export function acceptanceTask(val) { //验收任务验收状态
-    if (val == 5) {
-        return '（待验收）'
-    } else if (val == 6) {
-        return '（验收未通过）'
-    } else {
-        return '（验收已通过）'
     }
 }
 

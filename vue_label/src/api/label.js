@@ -142,7 +142,7 @@ const apis = {
     },
     arbitrationPuzzleTask(id) { //疑难杂症仲裁
         return http.post({
-            url: '/pc/projectTask/arbitrationPuzzleTask',
+            url: 'pc/projectTask/arbitrationPuzzleTask',
             data: {
                 id: id,
             }

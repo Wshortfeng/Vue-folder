@@ -2,7 +2,7 @@
   <div class="southdisease  content-padding">
     <div class="search-box">
       <span>关键字：</span>
-      <el-input v-model="keyWord"  placeholder="请输入项目号、任务号" class="keyword mg_right" maxlength="50"></el-input>
+      <el-input v-model="keyWord" placeholder="请输入项目号、任务号" class="keyword mg_right" maxlength="50"></el-input>
       <span>状态：</span>
       <el-select v-model="status" placeholder="请选择" class="mg_right">
         <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
@@ -23,15 +23,17 @@
                 {{scope.row.hashMapList[0].title}}<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-popover trigger="hover" placement="top-start"   v-for="(item,index) in scope.row.hashMapList" :key="index" >
-                   <div v-for="(a,i) in item.info" :key="i" class="tooltip-item" >
-                      姓名：{{a.legalName}}<br>
-                      所在地区：{{a.address}}<br>
-                      职称： {{a.professionalTitle|professionalTitleType}}<br>
-                      接单数：{{a.num}}<br>
-                    </div>
-                <p slot="reference"><el-dropdown-item >{{item.title}}</el-dropdown-item></p>
-               </el-popover>
+                <el-popover trigger="hover" placement="top-start" v-for="(item,index) in scope.row.hashMapList" :key="index">
+                  <div v-for="(a,i) in item.info" :key="i" class="tooltip-item">
+                    姓名：{{a.legalName}}<br>
+                    所在地区：{{a.address}}<br>
+                    职称： {{a.professionalTitle|professionalTitleType}}<br>
+                    接单数：{{a.num}}<br>
+                  </div>
+                  <p slot="reference">
+                    <el-dropdown-item>{{item.title}}</el-dropdown-item>
+                  </p>
+                </el-popover>
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -43,9 +45,9 @@
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button size="mini" type="text" @click="operation(scope.row.id, 'review',scope.row.taskNumber,scope.row.projectId)" v-if="scope.row.status==5">验收</el-button>
-            <el-button size="mini" type="text" @click="operation(scope.row.id, 'detail',scope.row.taskNumber,scope.row.projectId)" v-else>查看</el-button>
-            <el-button size="mini" type="text" @click="operation(scope.row.id, 'initiatearbitration',scope.row.taskNumber)" v-if="scope.row.status==8">结算</el-button>
+            <el-button size="mini" type="text" @click="operation(scope.row.id, 'review',scope.row.taskNumber,scope.row.isStop,scope.row.projectId)" v-if="scope.row.status==10">验收</el-button>
+            <el-button size="mini" type="text" @click="operation(scope.row.id, 'detail',scope.row.taskNumber,scope.row.isStop,scope.row.projectId)" v-else>查看</el-button>
+            <el-button size="mini" type="text" @click="operation(scope.row.id, 'initiatearbitration',scope.row.taskNumber,scope.row.isStop)" v-if="scope.row.status==14">结算</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -75,28 +77,40 @@ export default {
           label: "全部"
         },
         {
-          value: "4",
+          value: "9",
           label: "待会诊"
         },
         {
-          value: "5",
+          value: "10",
           label: "待验收"
         },
         {
-          value: "6",
+          value: "12",
           label: "验收未通过"
         },
         {
-          value: "7",
+          value: "13",
           label: "待仲裁"
         },
         {
-          value: "8",
+          value: "14",
           label: "待结算"
         },
         {
-          value: "9",
+          value: "15",
           label: "已完成"
+        },
+        {
+          value: "16",
+          label: "已过期"
+        },
+        {
+          value: "17",
+          label: "已放弃"
+        },
+        {
+          value: "18",
+          label: "已失败"
         }
       ],
       status: "",
@@ -149,19 +163,34 @@ export default {
           }
         });
     },
-    operation: function(taskId, name, taskNumber,projectId) {
+    operation: function(taskId, name, taskNumber, isStop, projectId) {
       //操作
-      if (name == "detail"||name == "review") {
-        this.$utils.setSession("LABELPROJECTID",projectId);
+      if (name == "detail") {
+        this.$utils.setSession("LABELPROJECTID", projectId);
         this.$utils.setSession("LABELPROJECTBATCHTASKID", taskId);
         this.$utils.setSession("LABELTYPE", 1);
         this.$router.push({
           name: "DiseaseProjectViewsMarkingTool"
         });
-      }  else if (name == "initiatearbitration") {
-        this.settlementtaskId = taskId;
+      } else if (name == "review") {
+        if (isStop == 2) {
+          this.$toaster.error("该疑难杂症任务已被暂停，暂时无法验收");
+        } else {
+          this.$utils.setSession("LABELPROJECTID", projectId);
+          this.$utils.setSession("LABELPROJECTBATCHTASKID", taskId);
+          this.$utils.setSession("LABELTYPE", 1);
+          this.$router.push({
+            name: "DiseaseProjectViewsMarkingTool"
+          });
+        }
+      } else if (name == "initiatearbitration") {
+        if (isStop == 2) {
+          this.$toaster.error("该疑难杂症任务已被暂停，暂时无法结算");
+        } else {
+         this.settlementtaskId = taskId;
         this.settlementtaskFormVisible = true;
         this.title = `是否确认结算【${taskNumber}】任务？`;
+        }
       }
     },
     closesettlementtaskForm() {

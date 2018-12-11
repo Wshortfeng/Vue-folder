@@ -93,7 +93,7 @@ export default {
     var isIp = (rule, value, callback) => {
       //IP验证
       if (!value) {
-        return new Error("请输入设备IP");
+        return callback(new Error("请输入设备IP"));
       } else {
         if (!this.$utils.isIp(value)) {
           callback(new Error("设备IP格式错误"));
@@ -195,7 +195,7 @@ export default {
           cancelButtonText: "取消",
           type: "warning"
         }).then(res => {
-          this.$api.user.delfun("sysUser/delDvr", id).then(res => {
+          this.$api.user.delfun("spDevice/delDvr", id).then(res => {
             if (res.code == 200) {
               this.detDvrList();
               this.$toaster.ok("删除成功");

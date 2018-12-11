@@ -2,8 +2,8 @@
   <div class="batchdetail content-padding">
     <div class="task-list tablecontent">
       <p style="margin-bottom:19px;font-size:16px;color:#666;">{{batchNumber}} 任务列表：</p>
-      <div class="operation_box" style="height:30px;">
-        <el-button style="border:1px solid #606266;" :class="{operation_btn1:true,selectbtn:statusType ==item.value}" type="" size="mini" v-for="(item,index) in options" :key="index" @click="tapChange(item)" v-if="item.value!=4">{{item.label}}</el-button>
+      <div class="operation_box">
+        <el-button v-show="item.value!=9"  style="border:1px solid #606266;margin-right:5px !important;padding: 6px 9px !important;" :class="{operation_btn1:true,selectbtn:statusType ==item.value}" type="" size="mini" v-for="(item,index) in options" :key="index" @click="tapChange(item)">{{item.label}}</el-button>
       </div>
       <el-table :data="tasklist" border style="width: 100%;border-bottom:1px solid #e5e0e0;" :header-cell-style="{background:'#f6f6f6',color:'#333333'}" v-loading="isloading">
         <el-table-column label="任务号">
@@ -45,62 +45,77 @@ export default {
       statusType: 0,
       batchNumber:'',
       options: [
-        // {
-        //   value: "",
-        //   label: "全部",
-        //   isSelect: true
-        // },
         {
-          value: "0",
+          value: "1",
           label: "待提交"
         },
         {
-          value: "1",
-          label: "待初审"
-        },
-        {
           value: "2",
-          label: "初审未通过"
+          label: "待审核"
         },
         {
           value: "3",
-          label: "待复审"
+          label: "待初审"
         },
         {
           value: "4",
-          label: "待会诊"
+          label: "初审已通过"
         },
         {
           value: "5",
-          label: "待验收"
+          label: "初审未通过"
         },
         {
           value: "6",
-          label: "验收未通过"
+          label: "待复审"
         },
         {
           value: "7",
-          label: "待仲裁"
+          label: "复审已通过"
         },
         {
           value: "8",
-          label: "待结算"
+          label: "复审未通过"
         },
-        {
-          value: "9",
-          label: "已完成"
-        },
-        {
-          value: "12",
-          label: "已失败"
-        },
+     {
+       value: "9",
+       label: "待会诊"
+     },
         {
           value: "10",
-          label: "已过期"
+          label: "待验收"
         },
         {
           value: "11",
+          label: "验收已通过"
+        },
+        {
+          value: "12",
+          label: "验收未通过"
+        },
+        {
+          value: "13",
+          label: "待仲裁"
+        },
+        {
+          value: "14",
+          label: "待结算"
+        },
+        {
+          value: "15",
+          label: "已完成"
+        },
+        {
+          value: "16",
+          label: "已过期"
+        },
+        {
+          value: "17",
           label: "已放弃"
+        },
+        {
+          value: "18",
+          label: "已失败"
         }
       ]
     };
@@ -109,16 +124,34 @@ export default {
     var STATUS = this.$utils.getSession("LABELBATCHSTATUS");
     this.batchNumber = this.$route.query.BATCHNUMBER
     if (STATUS) {
-      if (STATUS <= 10) {
-        this.statusType = STATUS - 1;
-      } else if (STATUS == 11) {
-        this.statusType = 12;
-      } else if (STATUS == 12) {
+      if (STATUS == 1) {
+        this.statusType = 1;
+      } else if (STATUS == 2) {
+        this.statusType = 3;
+      } else if (STATUS == 3) {
+        this.statusType = 5;
+      }	else if (STATUS == 4) {
+        this.statusType = 6;
+      } else if (STATUS == 5) {
+        this.statusType = 8;
+      } else if (STATUS == 6) {
         this.statusType = 10;
-      } else if (STATUS == 13) {
+      } else if (STATUS == 7) {
         this.statusType = 11;
+      } else if (STATUS == 8) {
+        this.statusType = 13;
+      } else if (STATUS == 9) {
+        this.statusType = 14;
+      } else if (STATUS == 10) {
+        this.statusType = 15;
+      } else if (STATUS == 11) {
+        this.statusType = 18;
+      } else if (STATUS == 12) {
+        this.statusType = 16;
+      } else if (STATUS == 13) {
+        this.statusType = 17;
       }
-      this.status = this.options[STATUS-1].label||this.options[0].lable;
+      this.status = this.options[this.statusType-1].label||this.options[0].lable;
     }
     this.getLabelBatchTaskList();
   },

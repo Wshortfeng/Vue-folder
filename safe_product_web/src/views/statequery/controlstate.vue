@@ -81,7 +81,7 @@ export default {
     return {
       isloading: true,
       currentPage: 1, //初始页
-      pagesize: 9, //    每页的数据
+      pagesize: 6, //    每页的数据
       total: 0, //总数
       tableData: [],
       address: "",

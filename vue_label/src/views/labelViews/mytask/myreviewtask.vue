@@ -34,19 +34,19 @@
               </el-popover>
             </template>
           </el-table-column>
-          <el-table-column label="提交审核截止时间" v-if="status!=10&&status!=11" width="160px">
+          <el-table-column label="提交审核截止时间" v-if="status!=16&&status!=17&&status!=18" width="160px">
             <template slot-scope="scope">
               <el-popover trigger="hover" placement="top-start" :content="scope.row.endDate|zhDatetime">
                 <p slot="reference">{{scope.row.endDate|zhDatetime}}</p>
               </el-popover>
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="220px" v-if="status!=10&&status!=11">
+          <el-table-column label="操作" width="220px" v-if="status!=16&&status!=17&&status!=18">
             <template slot-scope="scope">
-              <el-button size="mini" type="text" @click="operation(scope.row.taskReviewId,'review',scope.row.taskNumber,scope.row.projectId,scope.row.batchTaskId)" v-if="(status==1||status==3||status==4)&&scope.row.isAllow==1">审核</el-button>
-              <el-button size="mini" type="text" @click="operation(scope.row.taskReviewId,'giveup',scope.row.taskNumber)" v-if="(status==1||status==3||status==4)&&scope.row.isAllow==1">放弃</el-button>
-              <el-button size="mini" type="text" @click="operation(scope.row.taskReviewId,'detail',scope.row.taskNumber,scope.row.projectId,scope.row.batchTaskId)" v-if="status==2||status==5||status==6||status==7||status==8||status==9||(status==4&&scope.row.isAllow==2)||(status==3&&scope.row.isAllow==2)">查看</el-button>
-              <el-button size="mini" type="text" @click="operation(scope.row.taskReviewId,'initiatearbitration',scope.row.taskNumber)" v-if="status==6">发起仲裁</el-button>
+              <el-button size="mini" type="text" @click="operation(scope.row.taskReviewId,'review',scope.row.taskNumber,scope.row.isStop,scope.row.projectId,scope.row.batchTaskId)" v-if="(status==3||status==6||status==9)&&scope.row.isAllow==1">审核</el-button>
+              <el-button size="mini" type="text" @click="operation(scope.row.taskReviewId,'giveup',scope.row.taskNumber,scope.row.isStop)" v-if="(status==3||status==6||status==9)&&scope.row.isAllow==1">放弃</el-button>
+              <el-button size="mini" type="text" @click="operation(scope.row.taskReviewId,'detail',scope.row.taskNumber,scope.row.isStop,scope.row.projectId,scope.row.batchTaskId)" v-if="status==4||status==5||status==7||status==8||status==10||status==11||status==12||status==13||status==14||status==15||(status==6&&scope.row.isAllow==2)||(status==9&&scope.row.isAllow==2)">查看</el-button>
+              <el-button size="mini" type="text" @click="operation(scope.row.taskReviewId,'initiatearbitration',scope.row.taskNumber,scope.row.isStop)" v-if="status==12">发起仲裁</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -66,59 +66,73 @@ export default {
   data() {
     return {
       navList: [
-        //1：待初审，2：初审未通过，3：待复审，4：待会诊，5：待验收，6：验收未通过，7：待仲裁，8：待结算，9：已完成，10,：已过期，11：已放弃
-
         {
-          name: "待初审",
-          value: 1
+          value: "3",
+          name: "待初审"
         },
         {
-          name: "初审未通过",
-          value: 2
+          value: "4",
+          name: "初审已通过"
         },
         {
-          name: "待复审",
-          value: 3
+          value: "5",
+          name: "初审未通过"
         },
         {
-          name: "待会诊",
-          value: 4
+          value: "6",
+          name: "待复审"
         },
         {
-          name: "待验收",
-          value: 5
+          value: "7",
+          name: "复审已通过"
         },
         {
-          name: "验收未通过",
-          value: 6
+          value: "8",
+          name: "复审未通过"
+        },
+//      {
+//        value: "9",
+//        name: "待会诊"
+//      },
+        {
+          value: "10",
+          name: "待验收"
         },
         {
-          name: "待仲裁",
-          value: 7
+          value: "11",
+          name: "验收已通过"
         },
         {
-          name: "待结算",
-          value: 8
+          value: "12",
+          name: "验收未通过"
         },
         {
-          name: "已完成",
-          value: 9
+          value: "13",
+          name: "待仲裁"
         },
         {
-          name: "已失败",
-          value: 12
+          value: "14",
+          name: "待结算"
         },
         {
-          name: "已过期",
-          value: 10
+          value: "15",
+          name: "已完成"
         },
         {
-          name: "已放弃",
-          value: 11
+          value: "16",
+          name: "已过期"
+        },
+        {
+          value: "17",
+          name: "已放弃"
+        },
+        {
+          value: "18",
+          name: "已失败"
         }
       ],
       keyWord: "",
-      status: 1,
+      status: 3,
       currentPage: 1, //初始页
       pagesize: 11, //    每页的数据
       total: 0, //总数
@@ -132,7 +146,7 @@ export default {
     // }
   },
   created() {
-    this.status = this.$utils.getSession("LABELREVIEWTASKSTATUS") || 1;
+    this.status = this.$utils.getSession("LABELREVIEWTASKSTATUS") || 3;
     this.getUserReviewTaskList();
   },
   methods: {
@@ -169,15 +183,20 @@ export default {
           this.tableData = res.data;
         });
     },
-    operation: function(
-      taskReviewId,
-      name,
-      taskNumber,
-      projectId,
-      batchTaskId
-    ) {
+    operation(taskReviewId, name, taskNumber, isStop, projectId, batchTaskId) {
       //操作
-      if (name == "review" || name == "detail") {
+      if (name == "review") {
+        if (isStop == 2) {
+          this.$toaster.error("该审核任务已被暂停，暂时无法审核标注");
+        } else {
+          this.$utils.setSession("LABELPROJECTID", projectId);
+          this.$utils.setSession("LABELPROJECTBATCHTASKID", batchTaskId);
+          this.$utils.setSession("LABELTYPE", 1);
+          this.$router.push({
+            name: "ReviewMarkingTool"
+          });
+        }
+      } else if (name == "detail") {
         this.$utils.setSession("LABELPROJECTID", projectId);
         this.$utils.setSession("LABELPROJECTBATCHTASKID", batchTaskId);
         this.$utils.setSession("LABELTYPE", 1);
@@ -185,29 +204,35 @@ export default {
           name: "ReviewMarkingTool"
         });
       } else if (name == "giveup") {
-        this.$confirm("是否确定放弃【" + taskNumber + "】的审核？", "", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "info"
-        })
-          .then(() => {
-            this.$api.label.abandonReviewTask(taskReviewId, 1).then(res => {
-              if (res.code == 200) {
-                this.getUserReviewTaskList();
-                this.$toaster.ok(res.msg);
-              } else {
-                this.$toaster.error(res.msg);
-              }
-            });
+        if (isStop == 2) {
+          this.$toaster.error("该审核任务已被暂停，暂时无法放弃审核");
+        } else {
+          this.$confirm("是否确定放弃【" + taskNumber + "】的审核？", "", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "info"
           })
-          .catch(() => {});
+            .then(() => {
+              this.$api.label.abandonReviewTask(taskReviewId, 1).then(res => {
+                if (res.code == 200) {
+                  this.getUserReviewTaskList();
+                  this.$toaster.ok(res.msg);
+                } else {
+                  this.$toaster.error(res.msg);
+                }
+              });
+            })
+            .catch(() => {});
+        }
       } else if (name == "initiatearbitration") {
-        this.$confirm("是否确定【" + taskNumber + "】发起仲裁？", "", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        })
-          .then(() => {
+        if (isStop == 2) {
+          this.$toaster.error("该审核任务已被暂停，暂时无法发起仲裁");
+        } else {
+          this.$confirm("是否确定【" + taskNumber + "】发起仲裁？", "", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          }).then(() => {
             // this.$api.project.upAndDownProject(id).then(res => {
             //   this.getUserReviewTaskList();
             //   this.$message({
@@ -215,8 +240,8 @@ export default {
             //     message: "提交成功!"
             //   });
             // });
-          })
-          .catch(() => {});
+          });
+        }
       }
     }
   }
@@ -251,8 +276,8 @@ export default {
           border-bottom: 1px solid #eff2f5;
           font-size: 16px;
           text-align: center;
-          height: 55px;
-          line-height: 55px;
+          height: 44px;
+          line-height: 44px;
           cursor: pointer;
         }
         li:last-child {

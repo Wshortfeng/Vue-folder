@@ -15,28 +15,11 @@
 							<el-scrollbar style="height:100%;width: 100%;">
 								<el-row>
 									<el-col :span="24" class="tac">
-										<!--<el-menu class="el-menu-vertical-demo" default-active="0-0" unique-opened background-color="#4a4a4a" text-color="#fff" active-text-color="#004080">-->
 										<el-menu class="el-menu-vertical-demo" unique-opened background-color="#004080" text-color="#fff" active-text-color="#004080">
-											<el-submenu :index="indexa+''" v-if="itema.taskType!=1" v-for="(itema,indexa) in labelProjectBatchList.taskList" :key="indexa">
+											<el-submenu :index="indexa+''"  v-for="(itema,indexa) in labelProjectBatchList.taskList" :key="indexa">
 												<template slot="title">
 													<span>{{itema.taskNumber}}</span>
 													<span>（{{itema.taskStatus|batchtaskstate}}）</span>
-													<a :idd="itema.batchTaskId" @click="operation($event)">病历</a>
-												</template>
-												<el-menu-item :index="indexa+'-'+index" v-for="(item, index) in itema.labelList" @click="selectTaskIndex(indexa,index)" :key="index">● {{index|labelTaskType}}</el-menu-item>
-											</el-submenu>
-											<el-submenu :index="indexa+''" v-if="labelProjectBatchList.batchStatus>=9&&itema.taskType==1" v-for="(itema,indexa) in labelProjectBatchList.taskList" :key="indexa">
-												<template slot="title">
-													<span>{{itema.taskNumber}}</span>
-													<span>（{{itema.taskStatus|batchtaskstate}}）</span>
-													<a :idd="itema.batchTaskId" @click="operation($event)">病历</a>
-												</template>
-												<el-menu-item :index="indexa+'-'+index" v-for="(item, index) in itema.labelList" @click="selectTaskIndex(indexa,index)" :key="index">● {{index|labelTaskType}}</el-menu-item>
-											</el-submenu>
-											<el-submenu :index="indexa+''" v-if="labelProjectBatchList.batchStatus<9&&itema.taskType==1" v-for="(itema,indexa) in labelProjectBatchList.taskList" :key="indexa">
-												<template slot="title">
-													<span>{{itema.taskNumber}}</span>
-													<span>（未抽样）</span>
 													<a :idd="itema.batchTaskId" @click="operation($event)">病历</a>
 												</template>
 												<el-menu-item :index="indexa+'-'+index" v-for="(item, index) in itema.labelList" @click="selectTaskIndex(indexa,index)" :key="index">● {{index|labelTaskType}}</el-menu-item>
@@ -366,14 +349,17 @@
 					that.nowImageWidth = a.width()
 					that.nowImageHeight = a.height()
 					$(".imageLabel-loading-body").hide()
+					if(getBatchLabelLista.labelList[index].labelData == undefined || getBatchLabelLista.labelList[index].labelData=="") {
+						that.labelData = ""
+					} else {
+						that.labelData = JSON.parse(getBatchLabelLista.labelList[index].labelData)
+					}
+					that.addLabelData()
+					that.labelSize = 10
+					that.changeLabelSize()
 				}, 1000)
 				
-				if(getBatchLabelLista.labelList[index].labelData == undefined || getBatchLabelLista.labelList[index].labelData=="") {
-					this.labelData = ""
-				} else {
-					this.labelData = JSON.parse(getBatchLabelLista.labelList[index].labelData)
-				}
-				this.addLabelData()
+					
 			},
 		    handleCurrentChange: function(currentPage) {
 		      this.currentPage = currentPage;
@@ -393,12 +379,16 @@
 							this.labelProjectBatchList = res.data
 							//							this.selectTaskIndex(0, 0)
 							setTimeout(function() {
-								$(".el-menu-vertical-demo.el-menu").children("li").first().find(".el-submenu__title").click()
+								if($(".el-menu-vertical-demo.el-menu").children("li").first().hasClass("is-opened")) {
+									
+								} else {
+									$(".el-menu-vertical-demo.el-menu").children("li").first().find(".el-submenu__title").click()
+								}
 								$(".el-menu-vertical-demo.el-menu").children("li").first().find("ul").find("li").first().click()
 								if($(".left-top-projectlist").height() >= 610) {
 									$(".left-top-projectlist").css("height", "610px")
 								}
-							}, 500)
+							}, 50)
 						} else {
 							this.$toaster.error(res.msg);
 						}

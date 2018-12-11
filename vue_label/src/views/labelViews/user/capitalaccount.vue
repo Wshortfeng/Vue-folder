@@ -112,22 +112,25 @@
         </el-table-column>
         <el-table-column label="剩余金额" width="100">
           <template slot-scope="scope">
-            <p>{{scope.row.transactionAmount}}</p>
+            <p>{{scope.row.labelerBalance}}</p>
           </template>
         </el-table-column>
         <el-table-column label="项目号" width="220">
           <template slot-scope="scope">
-            <p @click="goTo('project',scope.row.projectId)" class="underlineColor">{{scope.row.projectNumber}}</p>
+            <p v-if="scope.row.projectNumber" @click="goTo('project',scope.row.projectId)" class="underlineColor">{{scope.row.projectNumber}}</p>
+            <p v-else class="underlineColornot">{{scope.row.projectNumber}}</p>
           </template>
         </el-table-column>
         <el-table-column label="批次号" width="220">
           <template slot-scope="scope">
-            <p @click="goTo('batch',scope.row.batchId,scope.row.projectId)" class="underlineColor" v-if="scope.row.batchNumber">{{scope.row.batchNumber}}</p>
+            <p v-if="scope.row.batchNumber" @click="goTo('batch',scope.row.batchId,scope.row.projectId)" class="underlineColor">{{scope.row.batchNumber}}</p>
+            <p v-else class="underlineColornot">{{scope.row.batchNumber}}</p>
           </template>
         </el-table-column>
         <el-table-column label="任务号" width="220">
           <template slot-scope="scope">
-            <p @click="goTo('task',scope.row.taskId,scope.row.projectId)" class="underlineColor">{{scope.row.taskNumber}}</p>
+            <p v-if="scope.row.taskNumber" @click="goTo('task',scope.row.taskId,scope.row.projectId)" class="underlineColor">{{scope.row.taskNumber}}</p>
+            <p v-else class="underlineColornot">{{scope.row.taskNumber}}</p>
           </template>
         </el-table-column>
         <el-table-column label="交易对象" width="150">
@@ -655,7 +658,17 @@ export default {
           this.total2 = res.pageInfo.total;
           this.tableData2 = res.data;
         });
+    },
+  },
+    beforeRouteLeave (to, from, next) {//离开页面时
+    // console.log(to.name)
+    // console.log(from.name)
+    if(to.name==='CapitalAccountLabelProjectDetail'||to.name==='CapitalAccountMarkTool'||to.name==='CapitalAccountLookMarkTool'){
+      from.meta.keepAlive=true;
+    }else{
+       from.meta.keepAlive=false;
     }
+    next()//执行
   }
 };
 </script>
@@ -674,6 +687,9 @@ export default {
     padding: 20px 30px 5px 10px;
   }
 }
+.el-input-number__increase {
+  	border-radius: 0 !important;
+  }
 .capitalaccount {
   .surplusamount-box {
     line-height: 30px;

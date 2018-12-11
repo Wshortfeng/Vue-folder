@@ -219,7 +219,7 @@ export default {
               });
             })
             .catch(() => {
-              this.$toaster.info("已取消申请");
+              // this.$toaster.info("已取消申请");
             });
         } else if (type == "del") {
           this.$confirm("是否确定删除【" + toolNmae + "】标注工具？", "", {
@@ -240,7 +240,7 @@ export default {
                 });
             })
             .catch(() => {
-              this.$toaster.info("已取消删除");
+              // this.$toaster.info("已取消删除");
             });
         }
       } else if (name == "problem") {
@@ -263,7 +263,7 @@ export default {
               });
             })
             .catch(() => {
-              this.$toaster.info("已取消申请");
+              // this.$toaster.info("已取消申请");
             });
         } else if (type == "del") {
           this.$confirm("是否确定删除【" + toolNmae + "】字幕？", "", {
@@ -284,7 +284,7 @@ export default {
                 });
             })
             .catch(() => {
-              this.$toaster.info("已取消删除");
+              // this.$toaster.info("已取消删除");
             });
         }
       }

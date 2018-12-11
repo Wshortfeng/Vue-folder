@@ -157,8 +157,8 @@ export default {
         return localStorage.removeItem('TOKEN')
     },
     calcuMD5(pwd) {
-        pwd = pwd.toUpperCase();
-        pwd = md5(md5(pwd + 'bby'));
+        // pwd = pwd.toUpperCase();
+        pwd = md5(md5(pwd) + 'bby');
         return pwd;
     },
 }

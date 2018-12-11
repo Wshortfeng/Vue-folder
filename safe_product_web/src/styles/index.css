@@ -149,8 +149,9 @@
   height: 30px;
 }
 
-.el-select-dropdown.is-multiple {
-  width: 660px !important;
+.el-select-dropdown.is-multiple .max-width {
+  display: inline-block;
+  width: 620px !important;
 }
 
 .el-table--border::before {
@@ -344,6 +345,7 @@ table tbody {
 
 .container .container-main .container-content {
   position: relative;
+  margin-bottom: 60px;
 }
 
 .container .container-main .container-content table th,

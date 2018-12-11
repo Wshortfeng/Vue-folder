@@ -57,14 +57,14 @@
             <el-form-item prop="alarmText" label="告警文字：">
               <el-input type="textarea" v-model="ruleForm.alarmText" placeholder="请输入告警文字" maxlength="120" class="min_textarea " @change="filteremojifun($event,'ruleForm','alarmText')"></el-input>
             </el-form-item>
-            <el-form-item prop="similarInterval" label="同类报警间隔(ms)：">
+            <el-form-item prop="similarInterval" label="同类报警间隔(s)：">
               <el-autocomplete class="inline-input" v-model="ruleForm.similarInterval" :fetch-suggestions="hairBoxSearch" placeholder="请选择或输入同类报警间隔"   ></el-autocomplete>
             </el-form-item>
-            <el-form-item prop="difInterval" label="异类报警间隔(ms)：">
+            <el-form-item prop="difInterval" label="异类报警间隔(s)：">
               <el-autocomplete class="inline-input" v-model="ruleForm.difInterval" :fetch-suggestions="hairBoxSearch" placeholder="请选择或输入异类报警间隔"  ></el-autocomplete>
             </el-form-item>
             <el-form-item prop="sendUser" label="发送人：">
-              <el-select v-model="ruleForm.sendUser" filterable placeholder="请选择发送人列表">
+              <el-select v-model="ruleForm.sendUser" filterable placeholder="请选择发送人">
                 <el-option v-for="(item,index) in senderList" :label="item.username" :value="item.id" :key="index"></el-option>
               </el-select>
             </el-form-item>
@@ -85,7 +85,7 @@ export default {
   data() {
     var checkNum1 = (rule, value, callback) => {
       if (!value) {
-        return new Error("请选择或输入同类报警间隔");
+        return callback(new Error("请选择或输入同类报警间隔"));
       } else {
         if (!this.$utils.isInteger(value)) {
           callback(new Error("请输入数字值"));
@@ -100,7 +100,7 @@ export default {
     };
     var checkNum2 = (rule, value, callback) => {
       if (!value) {
-        return new Error("请选择或输入异类报警间隔");
+        return callback(new Error("请选择或输入异类报警间隔"));
       } else {
         if (!this.$utils.isInteger(value)) {
           callback(new Error("请输入数字值"));
@@ -171,7 +171,7 @@ export default {
   mounted() {
     this.edit = this.$route.query.EDIT;
     if (this.edit&&this.edit!='false') {
-      this.title = "编辑告警模板";
+      this.title = "修改告警模板";
       this.getAlarmTemplate();
     } else {
       this.title = "新增告警模板";

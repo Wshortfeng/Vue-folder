@@ -47,19 +47,21 @@
 								</p>
 							</el-scrollbar>
 							<el-pagination background layout="prev, pager, next" class="pageTap" @current-change="handleCurrentChange" :pager-count="5" :current-page="currentPage" :page-size="pageSize" :total="total">
-      						</el-pagination>
+							</el-pagination>
 						</div>
 					</div>
 				</div>
-				<div class="left-top-labelname" v-if="(taskType==2 || (isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==1||batchLabelList.status==3||batchLabelList.status==4)))&&isWorkBench==0">
+				<div class="left-top-labelname" v-if="(taskType==2 || (isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==3||batchLabelList.status==6||batchLabelList.status==9)))&&isWorkBench==0">
 					<a class="color" labelType="1" @click="changelabelType($event)">点标注</a>
 					<a labelType="2" @click="changelabelType($event)">线标注</a>
 					<a labelType="3" @click="changelabelType($event)">框标注</a>
 				</div>
-				<!--<div class="left-top-right-screen" v-if="(taskType==2 || (isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==1||batchLabelList.status==3||batchLabelList.status==4)))&&isWorkBench==0">-->
+				<!--<div class="left-top-right-screen" v-if="(taskType==2 || (isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==3||batchLabelList.status==6||batchLabelList.status==9)))&&isWorkBench==0">-->
 				<div class="left-top-right-screen" v-if="isWorkBench==0">
-					<a class="screen-image" v-if="isScreen==0"><img src="../../../../static/screen.png" @click="screen()" /></a>
-					<a class="screen-image" v-if="isScreen==1"><img src="../../../../static/screenext.png" @click="screenNot()" /></a>
+					<a class="screen-imagea" v-if="(taskType==2 || (isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==3||batchLabelList.status==6||batchLabelList.status==9)))&&isWorkBench==0&&imageType!=0&&isMove!=1"><img src="../../../../static/yidonga.png" @click="move()" /></a>
+					<a class="screen-imagea" v-if="(taskType==2 || (isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==3||batchLabelList.status==6||batchLabelList.status==9)))&&isWorkBench==0&&imageType!=0&&isMove==1"><img src="../../../../static/yidongb.png" @click="moveNot()" /></a>
+					<a class="screen-image screen-imagea" v-if="isScreen==0"><img src="../../../../static/screen.png" @click="screen()" /></a>
+					<a class="screen-image screen-imagea" v-if="isScreen==1"><img src="../../../../static/screenext.png" @click="screenNot()" /></a>
 					<template>
 						<div class="block label-size">
 							<img class="label-size-image" style="width:19px;height: 19px;" src="../../../../static/labeljian.png" @click="labeljian()" />
@@ -69,7 +71,7 @@
 					</template>
 				</div>
 			</div>
-			<div class="left-top2-listb" v-show="(taskType==2 || (isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==1||batchLabelList.status==3||batchLabelList.status==4)))&&isWorkBench==0">
+			<div class="left-top2-listb" v-show="(taskType==2 || (isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==3||batchLabelList.status==6||batchLabelList.status==9)))&&isWorkBench==0">
 				<div class="left-top2-list">
 					<ul v-show="labelType==1">
 						<li v-for="(item,index) in projectLabelToolList" :key="index" v-if="item.type==1">
@@ -146,7 +148,7 @@
 				<i class="el-icon-arrow-left" @click="goLeftscroll()"></i>
 				<i class="el-icon-arrow-right" @click="goRightscroll()"></i>
 			</div>
-			<div :class="(projectQuestionList.length!=0 && (taskType==2 || (isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==1||batchLabelList.status==3||batchLabelList.status==4))))&&isWorkBench==0 ? 'label-tool-image':'label-tool-image label-tool-imagenota'" v-if="isWorkBench==0">
+			<div :class="projectQuestionList.length!=0&&isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==3||batchLabelList.status==6||batchLabelList.status==9)||(projectQuestionList.length!=0&&labelProjectBatchList[0].batchStatus==1) ? 'label-tool-image':(projectQuestionList.length==0&&isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==3||batchLabelList.status==6||batchLabelList.status==9)||labelProjectBatchList[0].batchStatus==1 ? 'label-tool-image label-tool-imagenota':'label-tool-image label-tool-imagenot')" v-if="isWorkBench==0">
 				<div class="imageLabel-box">
 					<div class="imageLabel">
 						<div class="imageLabel-img-boxs">
@@ -191,7 +193,7 @@
 				</div>
 			</div>
 
-			<div class="problemnr" v-if="(projectQuestionList.length!=0 && (taskType==2 || (isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==1||batchLabelList.status==3||batchLabelList.status==4))))&&isWorkBench==0">
+			<div class="problemnr" v-if="(projectQuestionList.length!=0 && (taskType==2 || (isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==3||batchLabelList.status==6||batchLabelList.status==9))))&&isWorkBench==0">
 				<div class="problemnr-choice" v-if="projectQuestionList[problemIndex].type==1">
 					<p class="problemnr-subject">{{problemIndex + 1}}.{{projectQuestionList[problemIndex].subject}}</p>
 					<el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
@@ -230,16 +232,14 @@
 						<ul>
 							<li v-for="(itema, indexa) in labelCounts[index]" :key="indexa" :labelId="item" :imageIndex="indexa">
 								<el-popover v-if="itema.length>5" placement="top" width="auto" trigger="hover" :content="itema">
-									<div slot="reference" class="right-list-remark right-list-remarka" v-if="taskType==2 || (isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==1||batchLabelList.status==3||batchLabelList.status==4))">{{indexa + 1}}.<input v-model="labelCounts[index][indexa]" @blur="modifyLabelList($event)" @change="filteremoRigtList($event,index,indexa)" maxlength="50" placeholder="请备注" /></div>
-									<!--<div slot="reference" class="right-list-remark" v-else="">{{indexa + 1}}.<input v-model="labelCounts[index][indexa]" readonly="readonly" /></div>-->
+									<div slot="reference" class="right-list-remark right-list-remarka" v-if="taskType==2 || (isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==3||batchLabelList.status==6||batchLabelList.status==9))">{{indexa + 1}}.<input v-model="labelCounts[index][indexa]" @blur="modifyLabelList($event)" @change="filteremoRigtList($event,index,indexa)" maxlength="50" placeholder="请备注" /></div>
 									<span class="right-list-remarka" slot="reference" v-else="">{{indexa + 1}}.{{labelCounts[index][indexa]}}</span>
 								</el-popover>
 								<span v-if="itema.length<=5">
-									<div class="right-list-remark" v-if="taskType==2 || (isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==1||batchLabelList.status==3||batchLabelList.status==4))">{{indexa + 1}}.<input v-model="labelCounts[index][indexa]" @blur="modifyLabelList($event)" @change="filteremoRigtList($event,index,indexa)" maxlength="50" placeholder="请备注" /></div>
-									<!--<div class="right-list-remark" v-else="">{{indexa + 1}}.<input v-model="labelCounts[index][indexa]" readonly="readonly" /></div>-->
+									<div class="right-list-remark right-list-remarka" v-if="taskType==2 || (isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==3||batchLabelList.status==6||batchLabelList.status==9))">{{indexa + 1}}.<input v-model="labelCounts[index][indexa]" @blur="modifyLabelList($event)" @change="filteremoRigtList($event,index,indexa)" maxlength="50" placeholder="请备注" /></div>
 									<span class="right-list-remarka" v-else="">{{indexa + 1}}.{{labelCounts[index][indexa]}}</span>
 								</span>
-								<img v-if="taskType==2 || (isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==1||batchLabelList.status==3||batchLabelList.status==4))" src="../../../assets/img/labellistclose.png" @click="deleteLabelList($event)" />
+								<img v-if="taskType==2 || (isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==3||batchLabelList.status==6||batchLabelList.status==9))" src="../../../assets/img/labellistclose.png" @click="deleteLabelList($event)" />
 							</li>
 						</ul>
 					</div>
@@ -252,9 +252,9 @@
 		</div>
 		<!--底部按钮-->
 		<div class="label-tool-bottom" v-if="isWorkBench==0">
-			<a v-if="taskType==2 || (isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==1||batchLabelList.status==3||batchLabelList.status==4))" status="2" @click="updataLabel($event)">保存草稿</a>
-			<a v-if="taskType==2 || (isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==1||batchLabelList.status==3||batchLabelList.status==4))" @click="resetLabel()">重置</a>
-			<a v-if="taskType==2 || (isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==1||batchLabelList.status==3||batchLabelList.status==4))" status="3" @click="updataLabel($event)">完成</a>
+			<a v-if="taskType==2 || (isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==3||batchLabelList.status==6||batchLabelList.status==9))" status="2" @click="updataLabel($event)">保存草稿</a>
+			<a v-if="taskType==2 || (isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==3||batchLabelList.status==6||batchLabelList.status==9))" @click="resetLabel()">重置</a>
+			<a v-if="taskType==2 || (isNowReviewUser==1&&reviewStatus==3&&batchLabelList.agreedLabelId==selectTaskLabelId&&(batchLabelList.status==3||batchLabelList.status==6||batchLabelList.status==9))" status="3" @click="updataLabel($event)">完成</a>
 			<a v-if="taskType==1 && isNowReviewUser==1&&reviewStatus==1&&selectTaskLabelId!=''&&batchLabelList.disAgreedLabelId.split(',').indexOf(selectTaskLabelId.toString())==-1" @click="reviewTaskPass()">通过</a>
 			<a v-if="taskType==1 && isNowReviewUser==1&&reviewStatus==1&&selectTaskLabelId!=''&&batchLabelList.disAgreedLabelId.split(',').indexOf(selectTaskLabelId.toString())==-1" @click="notPassTaskLabel()">不通过</a>
 		</div>
@@ -292,12 +292,13 @@
 	export default {
 		data() {
 			return {
+				isMove: 0, // 是否点击移动1为点击移动
 				isScreen: 0, // 工作台是否0不全屏，1全屏
 				labelSize: 10, // 图片放大缩小尺寸
 				randomColor: [], // 随机颜色
 				isWorkBench: 0, // 是否从title直接进入工作台0不是，1是
 				userLabelTaskList: [], // 用户待提交批次
-				submenuIndex: 0,
+				submenuIndex: 0, // 左侧任务是点击第几个
 				selectedBatch: '', // 选中的待提交批次
 				projectLabelId: "", // 项目id
 				labelProjectBatchTaskId: "", // 批次或任务id
@@ -392,7 +393,6 @@
 				var randomColor = that.getRandomColor();
 				that.randomColor.push(randomColor);
 			}
-			console.log(this.isWorkBench)
 			if(this.isWorkBench == 1) {
 				this.getUserLabelTaskList()
 			} else {
@@ -436,6 +436,7 @@
 						.getProjectBatchTask(this.labelProjectBatchTaskId)
 						.then(res => {
 							this.batchLabelList = res.data;
+							console.log(this.batchLabelList)
 							this.isNowReviewUser = res.data.isNowReviewUser;
 							this.reviewStatus = res.data.reviewStatus;
 							this.nowImage = res.data.imageUrl;
@@ -465,8 +466,8 @@
 											height: "100%",
 											width: (i / n) * l
 										});
-									if(that.batchLabelList.isNowReviewUser == 1&&that.batchLabelList.agreedLabelId!=undefined) {
-										that.submenuIndex = that.batchLabelList.labelList.length-1
+									if(that.batchLabelList.isNowReviewUser == 1 && that.batchLabelList.agreedLabelId != undefined) {
+										that.submenuIndex = that.batchLabelList.labelList.length - 1
 										that.selectTaskIndex(that.submenuIndex);
 									} else {
 										that.submenuIndex = 0
@@ -506,7 +507,7 @@
 						$(".imageLabel-jisuan").css({
 							overflow: "auto",
 						})
-					},500)
+					}, 500)
 				} else {
 					$(".imageLabel-img").css({
 						width: this.nowImageWidth * this.labelSize / 10,
@@ -524,7 +525,7 @@
 						$(".imageLabel-jisuan").css({
 							overflow: "auto",
 						})
-					},500)
+					}, 500)
 				}
 			},
 			getRandomColor() {
@@ -625,7 +626,7 @@
 					(i = $(".imageLabel-img")[0].naturalWidth),
 					(n = $(".imageLabel-img")[0].naturalHeight);
 					if(i == 0) {
-						
+
 					} else {
 						clearInterval(imagewidth);
 						that.naturalWidth = i
@@ -661,6 +662,10 @@
 			selectTaskIndex(index) {
 				// 左侧为任务时，选择内部第几个
 				var that = this;
+				if(index > (this.batchLabelList.labelList.length - 1)) {
+					var index = (this.batchLabelList.labelList.length - 1)
+				}
+				that.submenuIndex = index
 				this.selectTaskLabelId = this.batchLabelList.labelList[index].id;
 				if(this.batchLabelList.labelList[index].labelData == undefined || this.batchLabelList.labelList[index].labelData == "") {
 					this.labelData = "";
@@ -672,11 +677,34 @@
 				this.addLabelData();
 				that.problemIndex = 0;
 				this.getQuestionAnswer();
+				setTimeout(function() {
+					if($(".left-top2-listb").is(":visible") && that.imageType != "0") {
+						$(".imageLabel-content").off();
+						$(".imageLabel-img-boxs").off();
+						$(".imageLabel-delete").off();
+						$(".imageLabel-edit").off();
+						$(".imageLabel-input-ok").off();
+						imageLabel({
+							vuethat: that
+						});
+					} else {
+						imageLabel({
+							vuethat: that
+						});
+						$(".imageLabel-content").off();
+						$(".imageLabel-img-boxs").off();
+						$(".imageLabel-delete").off();
+						$(".imageLabel-edit").off();
+						$(".imageLabel-input-ok").off();
+					}
+					that.changeLabelListColor()
+					that.changeLabelSize()
+				}, 1)
 			},
-		    handleCurrentChange: function(currentPage) {
-		      this.currentPage = currentPage;
-		      this.getBatchTaskLabelList();
-		    },
+			handleCurrentChange: function(currentPage) {
+				this.currentPage = currentPage;
+				this.getBatchTaskLabelList();
+			},
 			getBatchTaskLabelList() {
 				// 获取批次列表
 				this.$api.project
@@ -838,6 +866,11 @@
 			},
 			choiceLabel(e) {
 				// 点击标注标签名称
+				$(".imageLabel-content").off();
+				$(".imageLabel-img-boxs").off();
+				$(".imageLabel-delete").off();
+				$(".imageLabel-edit").off();
+				$(".imageLabel-input-ok").off();
 				if(
 					$(e.target)
 					.parent()
@@ -864,13 +897,8 @@
 						this.lineType = "";
 					}
 				}
-				$(".imageLabel-content").off();
-				$(".imageLabel-img-boxs").off();
-				$(".imageLabel-delete").off();
-				$(".imageLabel-edit").off();
-				$(".imageLabel-input-ok").off();
-				if(this.imageType == "0") {
-					// 没有标注
+				if(this.imageType == "0") { // 没有标注
+
 				} else {
 					// 点击点标注
 					imageLabel({
@@ -878,6 +906,7 @@
 					});
 				}
 				this.changeLabelListColor()
+				this.changeLabelSize()
 			},
 			deleteLabelList(e) {
 				// 点击右侧叉号删除标注
@@ -1373,7 +1402,6 @@
 				} else {
 					this.labelUrl = ""
 				}
-
 				this.isModify = "1";
 				this.labelData = this.getLabelData();
 				this.$confirm(statusTypeName, "", {
@@ -1471,10 +1499,14 @@
 							.then(res => {
 								that.getProjectBatchTask();
 								setTimeout(function() {
-									var indexa = $(".el-menu-item.is-active").index()
-									$(".el-menu.el-menu--inline")
-										.find("li").eq(indexa + 1)
-										.click();
+									var indexa = $(".el-menu--inline .el-menu-item.is-active").index()
+									if(that.batchLabelList.isNowReviewUser == 1 && that.batchLabelList.agreedLabelId != undefined) {
+										that.submenuIndex = that.batchLabelList.labelList.length - 1
+										that.selectTaskIndex(that.submenuIndex);
+									} else {
+										that.submenuIndex = indexa + 1
+										that.selectTaskIndex(that.submenuIndex);
+									}
 								}, 500);
 							});
 					})
@@ -1546,12 +1578,42 @@
 						async: false
 					}).then(canvas => {
 						var dataURL = canvas.toDataURL('image/png')
+
 						this.labelUrl = dataURL
 						return dataURL
 					})
 					.catch(() => {
 
 					});
+			},
+			move() { // 可移动标注
+				this.isMove = 1
+				$(".imageLabel-content").off();
+				$(".imageLabel-img-boxs").off();
+				$(".imageLabel-delete").off();
+				$(".imageLabel-edit").off();
+				$(".imageLabel-input-ok").off();
+				imageLabel({
+					vuethat: this
+				});
+				this.changeLabelListColor()
+				this.changeLabelSize()
+			},
+			moveNot() { // 不可移动标注
+				this.isMove = 0
+				$(".imageLabel-content").off();
+				$(".imageLabel-img-boxs").off();
+				$(".imageLabel-delete").off();
+				$(".imageLabel-edit").off();
+				$(".imageLabel-input-ok").off();
+				if(this.imageType == 0) {
+
+				} else {
+					imageLabel({
+						vuethat: this
+					});
+				}
+				this.changeLabelSize()
 			},
 			screen() { // 全屏显示
 				var that = this

@@ -13,7 +13,7 @@ import utils from '@/utils/utils.js'
 const apis = {
     detDvrList(pageNum, pageSize, deviceIp) { //查询DVR列表
         return http.get({
-            url: 'sysUser/detDvrList',
+            url: 'spDevice/detDvrList',
             data: {
                 pageNum: pageNum,
                 pageSize: pageSize,
@@ -23,7 +23,7 @@ const apis = {
     },
     addDvr(deviceIp, port, userName, password) { //新增DVR
         return http.post({
-            url: 'sysUser/addDvr',
+            url: 'spDevice/addDvr',
             data: {
                 deviceIp: deviceIp,
                 port: port,
@@ -34,7 +34,7 @@ const apis = {
     },
     updateDvr(id, deviceIp, port, userName, password) { //编辑DVR
         return http.post({
-            url: 'sysUser/updateDvr',
+            url: 'spDevice/updateDvr',
             data: {
                 id: id,
                 deviceIp: deviceIp,
@@ -46,7 +46,7 @@ const apis = {
     },
     getDvrInfo(id) { //查询DVR详情
         return http.get({
-            url: 'sysUser/getDvrInfo',
+            url: 'spDevice/getDvrInfo',
             data: {
                 id: id,
             }
@@ -54,12 +54,12 @@ const apis = {
     },
     detAllDvrIp() { //获取DVR摄像机ip
         return http.get({
-            url: 'sysUser/detAllDvrIp',
+            url: 'spDevice/detAllDvrIp',
         })
     },
     deviceList(pageNum, pageSize, deviceIp, deviceCode, type, state) { //获取摄像机列表
         return http.get({
-            url: 'sysUser/deviceList',
+            url: 'spDevice/deviceList',
             data: {
                 pageNum: pageNum,
                 pageSize: pageSize,
@@ -72,7 +72,7 @@ const apis = {
     },
     deviceJoinOrRemove(deviceId) { //加入或移除摄像机
         return http.post({
-            url: 'sysUser/deviceJoinOrRemove',
+            url: 'spDevice/deviceJoinOrRemove',
             data: {
                 deviceId: deviceId,
             }
@@ -80,21 +80,31 @@ const apis = {
     },
     removeDvCamera(deviceId) { //删除摄像机
         return http.post({
-            url: 'sysUser/removeDvCamera',
+            url: 'spDevice/removeDvCamera',
             data: {
                 deviceId: deviceId,
                 _method: 'delete'
             }
         })
     },
+    updateDeviceLocation(id, location,videoUrl) { //修改模拟摄像机
+        return http.post({
+            url: 'spDevice/updateDeviceLocation',
+            data: {
+                id: id,
+                location: location,
+				videoUrl:videoUrl
+            }
+        })
+    },
     getAddChannel() { //获取数码摄像机频道
         return http.get({
-            url: 'sysUser/getAddChannel',
+            url: 'spDevice/getAddChannel',
         })
     },
     getDVCameraInfo(id) { //获取数码摄像机详情
         return http.post({
-            url: 'sysUser/getDVCameraInfo',
+            url: 'spDevice/getDVCameraInfo',
             data: {
                 id: id,
             }
@@ -102,7 +112,7 @@ const apis = {
     },
     addDVCamera(channel, deviceName, address, protocolType, deviceIp, username, password, cotrolType, controlPort, videoPort, videoParam, url1, url2) { //添加数码摄像机
         return http.post({
-            url: 'sysUser/addDVCamera',
+            url: 'spDevice/addDVCamera',
             data: {
                 channel: channel,
                 deviceName: deviceName,
@@ -122,7 +132,7 @@ const apis = {
     },
     updateDvCamera(deviceId, channel, deviceName, address, protocolType, deviceIp, username, password, cotrolType, controlPort, videoParam, videoPort, url1, url2) { //编辑数码摄像机
         return http.post({
-            url: 'sysUser/updateDvCamera',
+            url: 'spDevice/updateDvCamera',
             data: {
                 deviceId: deviceId,
                 channel: channel,

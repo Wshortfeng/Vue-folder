@@ -1,35 +1,3 @@
-'use strict';
-// import axios from 'axios'
-// import qs from 'qs';
-
-// /**
-//  * 向服务器端发送get请求
-//  * @param {string} url 请求的地址
-//  * @param {object} payload 配置参数
-//  * @param {boolean} [isLocal=true] 是否请求的是本地服务
-//  * @returns Promise
-//  */
-// export function get(url, payload, isLocal = true) {
-//     if (isLocal) {
-//         url = server + url;
-//     }
-//     return axios.get(url, payload)
-// }
-
-// /**
-//  * 发送post请求
-//  * @param {string} url  请求的地址
-//  * @param {object} data 传递的参数
-//  * @param {boolean} [isLocal=true]  是否是本地服务器
-//  * @returns Promise
-//  */
-
-// export function post(url, data, isLocal = true) {
-//     if (isLocal) {
-//         url = server + url
-//     }
-//     return axios.post(url, qs.stringify(data))
-// }
 import Vue from 'vue'
 import QS from 'qs'
 import Axios from 'axios'
@@ -37,6 +5,7 @@ import url from '@/utils/server'
 import toaster from '@/utils/toaster'
 import utils from '@/utils/utils'
 import store from '@/store/index'
+import { Message, MessageBox } from 'element-ui'
 const baseurl = url.apiurl
 
 // http request 拦截器
@@ -62,6 +31,20 @@ Axios.interceptors.response.use(
         switch (res.data.code) {
             case 200:
                 return res.data
+                break
+            case 421:
+                MessageBox.confirm(
+                    `${res.data.msg}，可以取消继续留在该页面，或者重新登录`,
+                    '确定登出', {
+                        confirmButtonText: '重新登录',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }
+                ).then(() => {
+                    utils.delAllStorage();
+                    utils.delAllSession();
+                    location.reload() // 为了重新实例化vue-router对象 避免bug
+                })
                 break
             default:
                 toaster.error('', res.data.msg, 1500)

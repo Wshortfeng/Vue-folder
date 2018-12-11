@@ -1,8 +1,9 @@
 <template>
   <div class="container">
     <div class="player">
-      <video-player class="video-player vjs-custom-skin" ref="videoPlayer" :playsinline="false" :options="playerOptions" @play="onPlayerPlay($event)" @pause="onPlayerPause($event)" @statechanged="playerStateChanged($event)">
-      </video-player>
+      <!-- <video-player class="video-player vjs-custom-skin" ref="videoPlayer" :playsinline="false" :options="playerOptions" @play="onPlayerPlay($event)" @pause="onPlayerPause($event)" @statechanged="playerStateChanged($event)">
+      </video-player> -->
+			
     </div>
   </div>
 </template>
@@ -25,7 +26,7 @@ export default {
         fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
         sources: [
           {
-            type: "video/mp4",
+            // type: "video/mp4",
             src: this.videoUrl // 你的m3u8地址（必填）
           }
         ],

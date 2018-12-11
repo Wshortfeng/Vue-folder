@@ -43,12 +43,12 @@
           </el-table-column>
           <el-table-column label="操作" width="190px" v-if="status!=11&&status!=12&&status!=13">
             <template slot-scope="scope">
-              <el-button size="mini" type="text" @click="operation(scope.row.id,'startlabel',scope.row.batchNumber,scope.row.projectId)" v-if="status==1">开始标注</el-button>
-              <el-button size="mini" type="text" @click="operation(scope.row.id,'giveuplabel',scope.row.batchNumber)" v-if="status==1">放弃标注</el-button>
-              <el-button size="mini" type="text" @click="operation(scope.row.id,'submission',scope.row.batchNumber)" v-if="status==1">提交</el-button>
-              <el-button size="mini" type="text" @click="operation(scope.row.id,'detail',scope.row.batchNumber,scope.row.projectId)" v-if="status!=1">查看</el-button>
-              <el-button size="mini" type="text" @click="operation(scope.row.id,'initiatereview',scope.row.batchNumber)" v-if="status==3">发起复审</el-button>
-              <el-button size="mini" type="text" @click="operation(scope.row.id,'initiatearbitration',scope.row.batchNumber)" v-if="status==7">发起仲裁</el-button>
+              <el-button size="mini" type="text" @click="operation(scope.row.id,'startlabel',scope.row.batchNumber,scope.row.isStop,scope.row.projectId)" v-if="status==1">开始标注</el-button>
+              <el-button size="mini" type="text" @click="operation(scope.row.id,'giveuplabel',scope.row.batchNumber,scope.row.isStop)" v-if="status==1">放弃标注</el-button>
+              <el-button size="mini" type="text" @click="operation(scope.row.id,'submission',scope.row.batchNumber,scope.row.isStop)" v-if="status==1">提交</el-button>
+              <el-button size="mini" type="text" @click="operation(scope.row.id,'detail',scope.row.batchNumber,scope.row.isStop,scope.row.projectId)" v-if="status!=1">查看</el-button>
+              <el-button size="mini" type="text" @click="operation(scope.row.id,'initiatereview',scope.row.batchNumber,scope.row.isStop)" v-if="status==3">发起复审</el-button>
+              <el-button size="mini" type="text" @click="operation(scope.row.id,'initiatearbitration',scope.row.batchNumber,scope.row.isStop)" v-if="status==7">发起仲裁</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -184,15 +184,19 @@ export default {
           this.tableData = res.data.list;
         });
     },
-    operation: function(id, name, batchNumber, projectId) {
+    operation: function(id, name, batchNumber, isStop, projectId) {
       //操作
       if (name == "startlabel") {
-        this.$utils.setSession("LABELPROJECTID", projectId);
-        this.$utils.setSession("LABELPROJECTBATCHTASKID", id);
-        this.$utils.setSession("LABELTYPE", 2);
-        this.$router.push({
-          name: "LabelMarkingTool"
-        });
+        if (isStop == 2) {
+          this.$toaster.error("该标注任务已被暂停，暂时无法开始标注");
+        } else {
+          this.$utils.setSession("LABELPROJECTID", projectId);
+          this.$utils.setSession("LABELPROJECTBATCHTASKID", id);
+          this.$utils.setSession("LABELTYPE", 2);
+          this.$router.push({
+            name: "LabelMarkingTool"
+          });
+        }
       } else if (name == "detail") {
         if (id == 0) {
           this.$utils.setSession("LABELBATCHID", id);
@@ -211,13 +215,36 @@ export default {
           });
         }
       } else if (name == "giveuplabel") {
-        this.$confirm("是否确定放弃【" + batchNumber + "】的标注？", "", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "info"
-        })
-          .then(() => {
-            this.$api.label.abandonLabelBatchTask(id).then(res => {
+        if (isStop == 2) {
+          this.$toaster.error("该标注任务已被暂停，暂时无法放弃标注");
+        } else {
+          this.$confirm("是否确定放弃【" + batchNumber + "】的标注？", "", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "info"
+          })
+            .then(() => {
+              this.$api.label.abandonLabelBatchTask(id).then(res => {
+                if (res.code == 200) {
+                  this.getUserLabelTaskList();
+                  this.$toaster.ok(res.msg);
+                } else {
+                  this.$toaster.error(res.msg);
+                }
+              });
+            })
+            .catch(() => {});
+        }
+      } else if (name == "submission") {
+        if (isStop == 2) {
+          this.$toaster.error("该标注任务已被暂停，暂时无法提交标注");
+        } else {
+          this.$confirm("是否确定提交【" + batchNumber + "】的标注？", "", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "success"
+          }).then(() => {
+            this.$api.label.submitBatchTask(id).then(res => {
               if (res.code == 200) {
                 this.getUserLabelTaskList();
                 this.$toaster.ok(res.msg);
@@ -225,28 +252,17 @@ export default {
                 this.$toaster.error(res.msg);
               }
             });
-          })
-          .catch(() => {});
-      } else if (name == "submission") {
-        this.$confirm("是否确定提交【" + batchNumber + "】的标注？", "", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "success"
-        }).then(() => {
-          this.$api.label.submitBatchTask(id).then(res => {
-            if (res.code == 200) {
-              this.getUserLabelTaskList();
-              this.$toaster.ok(res.msg);
-            } else {
-              this.$toaster.error(res.msg);
-            }
           });
-        });
+        }
       } else if (name == "initiatereview") {
-        this.$confirm("是否确定发起复审【" + batchNumber + "】的标注？", "", {
+        if (isStop == 2) {
+          this.$toaster.error("该标注任务已被暂停，暂时无法发起复审");
+        } else {
+          this.$confirm("是否确定发起复审【" + batchNumber + "】的标注？", "", {
           confirmButtonText: "是",
           cancelButtonText: "否",
-          type: "warning"
+          type: "warning",
+          distinguishCancelAndClose: true,
         })
           .then(() => {
             this.$api.label.secondReviewBatchTask(id).then(res => {
@@ -258,8 +274,9 @@ export default {
               }
             });
           })
-          .catch(() => {
-            this.$api.label.abandonSecondReview(id).then(res => {
+          .catch((action) => {
+            if(action=='cancel'){
+this.$api.label.abandonSecondReview(id).then(res => {
               if (res.code == 200) {
                 this.getUserLabelTaskList();
                 this.$toaster.ok(res.msg);
@@ -267,9 +284,14 @@ export default {
                 this.$toaster.error(res.msg);
               }
             });
+            }
           });
+        }
       } else if (name == "initiatearbitration") {
-        this.$confirm("是否确定发起仲裁【" + batchNumber + "】的标注？", "", {
+        if (isStop == 2) {
+          this.$toaster.error("该标注任务已被暂停，暂时无法发起仲裁");
+        } else {
+          this.$confirm("是否确定发起仲裁【" + batchNumber + "】的标注？", "", {
           confirmButtonText: "是",
           cancelButtonText: "否",
           type: "warning"
@@ -294,6 +316,7 @@ export default {
               }
             });
           });
+        }
       }
     }
   }

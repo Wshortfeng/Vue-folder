@@ -11,7 +11,7 @@
           </el-table-column>
           <el-table-column label="状态" width="120">
             <template slot-scope="scope">
-              <p>{{scope.row.status|batchtaskstate}}</p>
+              <p>{{scope.row.status|batchtaskstate1}}</p>
             </template>
           </el-table-column>
           <el-table-column label="医学图像">

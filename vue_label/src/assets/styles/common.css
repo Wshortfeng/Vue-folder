@@ -215,6 +215,9 @@ li:last-child:hover {
   border-bottom: 1px solid #5A7CD0;
   cursor: pointer;
 }
+.underlineColornot {
+  border-bottom: 1px solid #5A7CD0;
+}
 .el-breadcrumb .el-breadcrumb__item .el-breadcrumb__inner a {
   color: #A1A1A1;
   font-size: 13px;
@@ -385,7 +388,6 @@ table tr td .cell p {
 }
 .operation_box {
   position: relative;
-  height: 40px;
   margin-bottom: 19px;
 }
 .operation_box .addclass {
@@ -432,7 +434,7 @@ table tr td .cell p {
   cursor: default;
 }
 .operation_btn1 {
-  margin: 0 4px 0 0 !important;
+  margin: 0 4px 5px 0 !important;
   padding: 6px 10px;
 }
 .operation_btn1:last-child {
@@ -472,13 +474,13 @@ table tr td .cell p {
 .el-pagination.is-background .btn-prev,
 .el-pagination.is-background .el-pager li {
   background: #fff;
-  border: 1px solid#E4E4E4;
+  border: 1px solid #E4E4E4;
   border-radius: 2px;
   margin-left: 0px;
 }
 .el-pagination.is-background .el-pager li:not(.disabled).active {
   border-radius: 2px;
-  border: 1px solid#5A7CD0;
+  border: 1px solid #5A7CD0;
 }
 .el-pager li {
   height: 30px;
@@ -687,9 +689,6 @@ table tr td .cell p {
 .el-dialog {
   border-radius: 7px;
 }
-.deepbackground {
-  /* WebKit browsers */
-}
 .deepbackground input:-moz-placeholder,
 .deepbackground textarea:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
@@ -705,6 +704,7 @@ table tr td .cell p {
   /* Internet Explorer 10+ */
   color: white !important;
 }
+/* WebKit browsers */
 .deepbackground ::-webkit-input-placeholder {
   color: white !important;
 }
@@ -860,3 +860,4 @@ table tr td .cell p {
   line-height: 300px !important;
   height: 300px !important;
 }
+/*# sourceMappingURL=common.css.map */

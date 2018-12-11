@@ -70,9 +70,10 @@
                     <p class="warnColor">{{scope.row.state|enterStatusFormat}}</p>
                   </template>
                 </el-table-column>
-                <el-table-column label="操作">
+                <el-table-column label="操作" width="180">
                   <template slot-scope="scope">
                     <el-button size="mini" type="primary" @click="operation(scope.row.Id,'join')">加入</el-button>
+                    <el-button size="mini" type="primary" @click="operation(scope.row.Id,'editaddress',scope.row.address,scope.row.videoUrl)">修改</el-button>
                   </template>
                 </el-table-column>
               </el-table>
@@ -135,7 +136,20 @@
             </el-pagination>
           </div>
         </transition>
-
+ <el-dialog :visible.sync="showaddeditbox" :title="showaddeditboxtitle" width="550px" class="addeditbox" center style="padding:15px 20px;" @close="close('addeditbox')">
+      <el-form ref="addeditbox" :model="addeditbox" class="demo-form-inline" :rules="addeditboxRules" label-width="110px">
+        <el-form-item prop="username" label="摄像机位置：" >
+          <el-input v-model="addeditbox.location" placeholder="请输入摄像机位置" maxlength="10" @change="filteremojifun1($event,'addeditbox','username')"></el-input>
+        </el-form-item>
+ <el-form-item prop="username" label="视频路径：" >
+					<el-input v-model="addeditbox.videoUrl" placeholder="请输入视频路径" maxlength="100" @change="filteremojifun1($event,'addeditbox','videoUrl')"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="confirm('addeditbox')">确 定</el-button>
+        <el-button @click="close('addeditbox')">取 消</el-button>
+      </div>
+    </el-dialog>
       </div>
     </div>
   </div>
@@ -153,12 +167,27 @@ export default {
       deviceIp: "",
       allDvrIp: [], //IP列表\
       currentPage: 1, //初始页
-      pagesize: 9, //    每页的数据
+      pagesize: 6, //    每页的数据
       total: 0, //总数
       tableData: [],
       currentPage1: 1, //初始页
       total1: 0, //总数
-      tableData1: []
+      tableData1: [],
+      id:'',
+      showaddeditbox:false,
+      showaddeditboxtitle:'修改摄像机',
+      addeditbox:{
+        location:'',
+				videoUrl:''
+      },
+      addeditboxRules:{
+         location: [
+          { required: true, message: "请输入摄像机位置", trigger: "blur" }
+        ],
+				videoUrl: [
+					{ required: true, message: "请输入视频路径", trigger: "blur" }
+				],
+      }
     };
   },
   created() {},
@@ -174,6 +203,9 @@ export default {
   methods: {
      filteremojifun(e,name){//限制输入表情
       this[name] = this.$utils.filteremoji(e);
+    },
+    filteremojifun1(e,name,ruleForm){//限制输入表情
+      this[ruleForm][name] = this.$utils.filteremoji(e);
     },
     serchKey() {
       if(this.type==1){
@@ -227,14 +259,18 @@ export default {
       this.isloading = true;
       if (this.type == 1) {
         var deviceCode = this.deviceCode;
+        var deviceIp = this.deviceIp;
+        var currentPage = this.currentPage
       } else if (this.type == 2) {
         var deviceCode = this.deviceCode1;
+         var deviceIp = '';
+         var currentPage = this.currentPage1
       }
       this.$api.camerasetup
         .deviceList(
-          this.currentPage,
+          currentPage,
           this.pagesize,
-          this.deviceIp,
+           deviceIp,
           deviceCode,
           this.type,
           2
@@ -260,7 +296,7 @@ export default {
           this.isloading = false;
         });
     },
-    operation(id, type) {//操作
+    operation(id, type,address,videoUrl) {//操作
       if (type == "join") {
         this.$confirm("是否确定该摄像机加入？", "", {
           confirmButtonText: "确定",
@@ -293,7 +329,43 @@ export default {
         });
       }else if(type=='edit'){
         this.goTo('AddEditdigitalVideoCamera',true,id)
+      }else if(type=='editaddress'){
+        this.id=id;
+        this.addeditbox.location=address;
+				this.addeditbox.videoUrl=videoUrl;
+        this.showaddeditbox=true;
       }
+    },
+    confirm(ruleForm){//确认修改模拟摄像机
+      this.$refs[ruleForm].validate(valid => {
+          if (valid) {
+            var addeditbox = this.addeditbox;
+            this.$api.camerasetup
+              .updateDeviceLocation(
+                this.id,
+                addeditbox.location,
+								addeditbox.videoUrl
+              )
+              .then(res => {
+                if (res.code == 200) {
+                  this.$toaster.ok(res.msg);
+                   this.deviceList();
+                  this.close("addeditbox");
+                } else {
+                  this.$toaster.error(res.msg);
+                }
+              })
+              .catch(() => {});
+          } else {
+            // this.$toaster.error("请确认验证项格式");
+            return false;
+          }
+        });
+    },
+    close(ruleForm) {
+      //关闭弹框
+      this.$refs[ruleForm].resetFields();
+      this["show" + ruleForm] = false;
     },
     goTo(name,edit,id){//新增、编辑数码摄像机
       this.$router.push({

@@ -251,6 +251,12 @@ table tbody td .cell {
   z-index: 11;
   border-radius: 2px;
 }
+.label-tool .label-tool-left .left-top .left-top-projectinfo .left-top-projectlistnr .left-top-projectlist .el-scrollbar {
+  height: 261px !important;
+  background: #004080;
+  border-bottom: 1px solid #6985A5;
+  border-right: 1px solid #6985A5;
+}
 .label-tool .label-tool-left .left-top .left-top-projectinfo .left-top-projectlistnr .left-top-projectlist .el-scrollbar__wrap {
   margin-bottom: 0 !important;
 }
@@ -258,9 +264,9 @@ table tbody td .cell {
   border: none;
 }
 .label-tool .label-tool-left .left-top .left-top-projectinfo .left-top-projectlistnr .left-top-projectlist .el-menu-vertical-demo .el-submenu__title {
-  height: 50px !important;
+  height: 52px !important;
   border-bottom: 1px solid #fff;
-  line-height: 50px !important;
+  line-height: 52px !important;
   border-radius: 2px;
   padding: 0 0 0 5px !important;
 }
@@ -327,7 +333,7 @@ table tbody td .cell {
 }
 .label-tool .label-tool-left .left-top .left-top-projectinfo .left-top-projectlistnr .left-top-projectlist .el-pagination {
   background: #004080;
-  margin-top: 0;
+  margin-top: 0px;
 }
 .label-tool .label-tool-left .left-top .left-top-projectinfo .left-top-projectlistnr .left-top-projectlist .el-pagination button {
   background: #004080;
@@ -376,6 +382,7 @@ table tbody td .cell {
   float: right;
   padding: 15px;
 }
+.label-tool .label-tool-left .left-top .left-top-right-screen .screen-imagea img,
 .label-tool .label-tool-left .left-top .left-top-right-screen .screen-image img {
   width: 20px;
   height: 20px;
@@ -477,7 +484,7 @@ table tbody td .cell {
   transform: none;
 }
 .label-tool .label-tool-left .label-tool-image .imageLabel-box {
-  width: 90%;
+  width: 98%;
   margin: 0 auto;
   position: static;
   background: #004080;
@@ -530,7 +537,7 @@ table tbody td .cell {
 .label-tool .label-tool-left .problemnr {
   width: 100%;
   color: #fff;
-  padding: 0 20px;
+  padding: 0 10px;
 }
 .label-tool .label-tool-left .problemnr .problemnr-answer,
 .label-tool .label-tool-left .problemnr .problemnr-choice {

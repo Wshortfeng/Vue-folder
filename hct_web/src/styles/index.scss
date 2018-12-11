@@ -1,0 +1,195 @@
+@import './common.scss';
+@import './mixin.scss';
+@import './transition.scss';
+@import './element-ui.scss';
+@import './container.scss';
+@import './addeditbox.scss';
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-size: 14px;
+    font-family: $fontFamily !important;
+    color: #666;
+    min-width: 1200px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+    outline: none !important;
+    color: $color3;
+}
+
+p {
+    margin: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+input:-moz-placeholder,
+.el-textarea__inner:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: $placeHolderColor !important;
+    font-size: $fontSize1;
+    font-family: $fontFamily !important;
+}
+
+input::-moz-placeholder,
+.el-textarea__inner::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: $placeHolderColor !important;
+    font-size: $fontSize1;
+    font-family: $fontFamily !important;
+}
+
+input:-ms-input-placeholder,
+.el-textarea__inner:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: $placeHolderColor !important;
+    font-size: $fontSize1;
+    font-family: $fontFamily !important;
+}
+
+
+/* WebKit browsers */
+
+::-webkit-input-placeholder {
+    color: $placeHolderColor !important;
+    font-size: $fontSize1;
+    font-family: $fontFamily !important;
+}
+
+.el-textarea__inner:-moz-placeholder,
+.el-textarea__inner:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: $placeHolderColor !important;
+    font-size: $fontSize1;
+    font-family: $fontFamily !important;
+}
+
+.el-textarea__inner::-moz-placeholder,
+.el-textarea__inner::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: $placeHolderColor !important;
+    font-size: $fontSize1;
+    font-family: $fontFamily !important;
+}
+
+.el-textarea__inner:-ms-input-placeholder,
+.el-textarea__inner:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: $placeHolderColor !important;
+    font-size: $fontSize1;
+    font-family: $fontFamily !important;
+}
+
+// 碎片
+.clear {
+    clear: both;
+}
+
+.disabledColr {
+    .el-input__inner {
+        //禁用框样式
+        color: $background2;
+        background-color: transparent !important;
+    }
+}
+
+.keyword {
+    width: $keyword;
+}
+
+.mg_right1 {
+    margin-right: 10px;
+}
+
+.min_width {
+    width: 120px;
+    .el-input__inner {
+        text-align: center;
+    }
+}
+
+.min_width1 {
+    width: 220px;
+}
+
+.min_width2 {
+    width: 150px;
+    .el-input__inner {
+        text-align: center;
+    }
+}
+
+.min_width_select {
+    display: inline-block;
+    max-width: 460px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.min_width1_select {
+    max-width: 180px;
+}
+
+.min_width2_select {
+    max-width: 255px;
+}
+
+.min_input1.is-disabled {
+    width: 105px;
+    .el-input__inner {
+        text-align: center;
+        color: $background2;
+        background-color: transparent !important;
+    }
+}
+
+.min_select1 {
+    width: 90px;
+}
+
+.greenColor {
+    color: $color4;
+}
+
+.warnColor {
+    color: $color6;
+}
+
+.redColor {
+    color: $color6;
+}
+
+.grayBackground {
+    background: $background5 !important;
+    border-color: $background5 !important;
+}
+
+.centerfont {
+    .el-input__inner {
+        text-align: center;
+    }
+}

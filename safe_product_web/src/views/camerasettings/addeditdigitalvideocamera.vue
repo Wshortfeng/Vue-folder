@@ -63,7 +63,7 @@
             <div class="min_input_box">
               <el-form-item label="视频协议：" class="min_input_box_title"></el-form-item>
               <el-form-item prop="videoParam" label="参数：" class="min_el_form_item">
-                <el-input v-model="ruleForm.videoParam" placeholder="请输入视频协议参数" maxlength="50" @change="filteremojifun($event,'ruleForm','address')"></el-input>
+                <el-input v-model="ruleForm.videoParam" placeholder="请输入视频协议参数" maxlength="50" @change="filteremojifun($event,'ruleForm','videoParam')"></el-input>
               </el-form-item>
               <el-form-item prop="videoPort" label="端口：" class="min_el_form_item">
                 <el-input v-model="ruleForm.videoPort" placeholder="请输入视频协议端口" maxlength="10"></el-input>
@@ -96,7 +96,7 @@ export default {
         return new Error("请输入主机IP地址");
       } else {
         if (!this.$utils.isIp(value)) {
-          callback(new Error("设备IP格式错误"));
+          callback(new Error("主机IP格式错误"));
         } else {
           callback();
         }

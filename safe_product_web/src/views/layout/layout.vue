@@ -19,10 +19,7 @@
 
       <el-container>
         <el-aside :width="navWidth">
-          <el-scrollbar :class="{nav:true,isCollapseClass:isCollapse}">
-            <div>
-              <el-menu :router="true" :default-active="defaultActive" class="el-menu-vertical-demo" :collapse="isCollapse" :collapse-transition="false" unique-opened>
-                <div class="user-info">
+          <div class="user-info">
                   <p class="title">基本信息</p>
                   <el-row class="info-content">
                     <el-col :span="24" class="right">
@@ -41,6 +38,10 @@
                     </el-col>
                   </el-row>
                 </div>
+          <el-scrollbar :class="{nav:true,isCollapseClass:isCollapse}">
+            <div>
+              <el-menu :router="true" :default-active="defaultActive" class="el-menu-vertical-demo" :collapse="isCollapse" :collapse-transition="false" unique-opened>
+
                 <el-submenu index="1">
                   <template slot="title">
                     <i class="el el-icon-safetyproduction-shexiangji"> </i>

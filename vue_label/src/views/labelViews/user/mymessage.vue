@@ -29,7 +29,8 @@
         </el-table-column>
         <el-table-column label="单据号" width="220px">
           <template slot-scope="scope">
-            <p @click="goTo(scope.row.objectId,scope.row.billType,scope.row.status,scope.row.projectId)" class="underlineColor">{{scope.row.billNo}}</p>
+            <p v-if="scope.row.billNo" @click="goTo(scope.row.objectId,scope.row.billType,scope.row.status,scope.row.projectId,scope.row.isRead,scope.row.id)" class="underlineColor">{{scope.row.billNo}}</p>
+						<p v-else class="underlineColor">{{scope.row.billNo}}</p>
           </template>
         </el-table-column>
         <el-table-column label="状态" width="80px">
@@ -200,21 +201,26 @@ export default {
         }
       });
     },
-    setNotificationRead(isRead, id) {
+    setNotificationRead(isRead, id,type) {
       if (isRead == 2) {
         return;
       } else {
         this.$api.project.setNotificationRead(id).then(res => {
-          if (res.code == 200) {
+         if(type){
+            this.getNotificationList();
+         }else{
+            if (res.code == 200) {
             this.getNotificationList();
             this.$toaster.ok(res.msg);
           } else {
             this.$toaster.error(res.msg);
           }
+         }
         });
       }
     },
-    goTo(objectId, billType, status, projectId) {
+    goTo(objectId, billType, status, projectId,isRead,id) {
+      this.setNotificationRead(isRead,id,1)
       if (billType == 1) {
         this.$utils.setSession("PROJECTID", objectId);
         this.$router.push({

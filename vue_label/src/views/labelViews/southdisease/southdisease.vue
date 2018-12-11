@@ -2,7 +2,7 @@
   <div class="southdisease  content-padding">
     <div class="search-box">
       <span>关键字：</span>
-      <el-input v-model="keyWord"  placeholder="请输入项目号、任务号" class="keyword mg_right" maxlength="50"></el-input>
+      <el-input v-model="keyWord" placeholder="请输入项目号、任务号" class="keyword mg_right" maxlength="50"></el-input>
       <span>状态：</span>
       <el-select v-model="status" placeholder="请选择" class="mg_right">
         <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
@@ -23,9 +23,9 @@
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button size="mini" type="text" @click="operation(scope.row.id, 'review',scope.row.taskNumber,scope.row.projectId)" v-if="scope.row.status==4&&userId==scope.row.reviewUserId&&scope.row.isAllow==1">审核</el-button>
-            <el-button size="mini" type="text" @click="operation(scope.row.id, 'detail',scope.row.taskNumber,scope.row.projectId)" v-else>查看</el-button>
-            <el-button size="mini" type="text" @click="operation(scope.row.id, 'nitiatearbitration',scope.row.taskNumber)" v-if="scope.row.status==6">发起仲裁</el-button>
+            <el-button size="mini" type="text" @click="operation(scope.row.id, 'review',scope.row.taskNumber,scope.row.isStop,scope.row.projectId)" v-if="scope.row.status==9&&userId==scope.row.reviewUserId&&scope.row.isAllow==1">审核</el-button>
+            <el-button size="mini" type="text" @click="operation(scope.row.id, 'detail',scope.row.taskNumber,scope.row.isStop,scope.row.projectId)" v-else>查看</el-button>
+            <el-button size="mini" type="text" @click="operation(scope.row.id, 'nitiatearbitration',scope.row.taskNumber,scope.row.isStop)" v-if="scope.row.status==12">发起仲裁</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -56,28 +56,40 @@ export default {
           label: "全部"
         },
         {
-          value: "4",
+          value: "9",
           label: "待会诊"
         },
         {
-          value: "5",
+          value: "10",
           label: "待验收"
         },
         {
-          value: "6",
+          value: "12",
           label: "验收未通过"
         },
         {
-          value: "7",
+          value: "13",
           label: "待仲裁"
         },
         {
-          value: "8",
+          value: "14",
           label: "待结算"
         },
         {
-          value: "9",
+          value: "15",
           label: "已完成"
+        },
+        {
+          value: "16",
+          label: "已过期"
+        },
+        {
+          value: "17",
+          label: "已放弃"
+        },
+        {
+          value: "18",
+          label: "已失败"
         }
       ],
       status: "",
@@ -98,7 +110,7 @@ export default {
       this.getUserPuzzleTaskList();
     }
   },
-   computed: {
+  computed: {
     ...mapState("user", ["userId"])
   },
   mounted() {
@@ -133,30 +145,45 @@ export default {
           }
         });
     },
-    operation: function(id, name, taskNumber,projectId) {
+    operation: function(id, name, taskNumber, isStop, projectId) {
       //操作
-      if (name == "detail" || name == "review") {
-         this.$utils.setSession("LABELPROJECTID", projectId);
+      if (name == "detail") {
+        this.$utils.setSession("LABELPROJECTID", projectId);
         this.$utils.setSession("LABELPROJECTBATCHTASKID", id);
         this.$utils.setSession("LABELTYPE", 1);
         this.$router.push({
           name: "SouthDiseaseLabelViewsMarkingTool"
         });
-      } else if (name == "nitiatearbitration") {
-        this.$confirm("是否确定【" + taskNumber + "】任务发起仲裁？", "", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        }).then(() => {
-          this.$api.label.arbitrationPuzzleTask(id).then(res => {
-            if (res.code == 200) {
-              this.getUserPuzzleTaskList();
-              this.$toaster.ok(res.msg);
-            } else {
-              this.$toaster.error(res.msg);
-            }
+      } else if (name == "review") {
+        if (isStop == 2) {
+          this.$toaster.error("该疑难杂症任务已被暂停，暂时无法审核");
+        } else {
+          this.$utils.setSession("LABELPROJECTID", projectId);
+          this.$utils.setSession("LABELPROJECTBATCHTASKID", id);
+          this.$utils.setSession("LABELTYPE", 1);
+          this.$router.push({
+            name: "SouthDiseaseLabelViewsMarkingTool"
           });
-        });
+        }
+      } else if (name == "nitiatearbitration") {
+        if (isStop == 2) {
+          this.$toaster.error("该疑难杂症任务已被暂停，暂时无法发起仲裁");
+        } else {
+          this.$confirm("是否确定【" + taskNumber + "】任务发起仲裁？", "", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          }).then(() => {
+            this.$api.label.arbitrationPuzzleTask(id).then(res => {
+              if (res.code == 200) {
+                this.getUserPuzzleTaskList();
+                this.$toaster.ok(res.msg);
+              } else {
+                this.$toaster.error(res.msg);
+              }
+            });
+          });
+        }
       }
     },
     closesettlementtaskForm() {

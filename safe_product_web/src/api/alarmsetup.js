@@ -17,14 +17,20 @@ const apis = {
             url: 'spAlarmTemplate/getSet',
         })
     },
-    getAlarmList(number) { //获取分屏
-        return http.get({
-            url: 'spAlarmTemplate/getAlarmList',
+    saveSet(number,showDeviceIds) { //保存分屏设置
+        return http.post({
+            url: 'spAlarmTemplate/saveSet',
             data: {
-                number: number
+                number: number,
+				showDeviceIds:showDeviceIds
             }
         })
     },
+	getDeviceChoseList() { //获取设备选择列表
+		return http.get({
+			url: 'spAlarmTemplate/getDeviceChoseList',
+		})
+	},
     getAlarmTemplateList(pageNum, pageSize) { //获取告警模板列表
         return http.get({
             url: 'spAlarmTemplate/getAlarmTemplateList',

@@ -31,21 +31,27 @@
 						</div>
 						<div class="left-top-projectlist" v-if="taskType==2">
 							<el-scrollbar style="height:100%;width: 100%;">
-								<p :class="labelProjectBatchList[0].batchStatus!=6 ? 'rw-list rw-lista':'rw-list'" v-if="item.taskStatus==5" v-for="(item, index) in labelProjectBatchList" :key="index">
+								<p class="rw-list" v-for="(item, index) in labelProjectBatchList" :key="index">
 									<span :batchTaskId="item.label.batchTaskId" :imageUrl="item.imageUrl" @click="selectTask($event,index)">{{item.taskNumber}}</span>
-									<span v-if="labelProjectBatchList[0].batchStatus==6" :batchTaskId="item.label.batchTaskId" :imageUrl="item.imageUrl" @click="selectTask($event,index)">{{item.taskStatus|acceptanceTask}}</span>
+									<span :batchTaskId="item.label.batchTaskId" :imageUrl="item.imageUrl" @click="selectTask($event,index)">（{{item.taskStatus|batchtaskstate}}）</span>
+									<!--<span v-if="labelProjectBatchList[0].batchStatus==6" :batchTaskId="item.label.batchTaskId" :imageUrl="item.imageUrl" @click="selectTask($event,index)">（{{item.taskStatus|batchtaskstate}}）</span>-->
+									<a :idd="item.label.batchTaskId" @click="operation($event)">病历</a>
+								</p>
+								<!--<p :class="labelProjectBatchList[0].batchStatus!=6 ? 'rw-list rw-lista':'rw-list'" v-if="item.taskStatus==5" v-for="(item, index) in labelProjectBatchList" :key="index">
+									<span :batchTaskId="item.label.batchTaskId" :imageUrl="item.imageUrl" @click="selectTask($event,index)">{{item.taskNumber}}</span>
+									<span v-if="labelProjectBatchList[0].batchStatus==6" :batchTaskId="item.label.batchTaskId" :imageUrl="item.imageUrl" @click="selectTask($event,index)">（{{item.taskStatus|batchtaskstate}}）</span>
 									<a :idd="item.label.batchTaskId" @click="operation($event)">病历</a>
 								</p>
 								<p :class="labelProjectBatchList[0].batchStatus!=6 ? 'rw-list rw-lista':'rw-list'" v-if="item.taskStatus!=5&&item.taskStatus!=6" v-for="(item, index) in labelProjectBatchList" :key="index">
 									<span :batchTaskId="item.label.batchTaskId" :imageUrl="item.imageUrl" @click="selectTask($event,index)">{{item.taskNumber}}</span>
-									<span v-if="labelProjectBatchList[0].batchStatus==6" :batchTaskId="item.label.batchTaskId" :imageUrl="item.imageUrl" @click="selectTask($event,index)">{{item.taskStatus|acceptanceTask}}</span>
+									<span v-if="labelProjectBatchList[0].batchStatus==6" :batchTaskId="item.label.batchTaskId" :imageUrl="item.imageUrl" @click="selectTask($event,index)">（{{item.taskStatus|batchtaskstate}}）</span>
 									<a :idd="item.label.batchTaskId" @click="operation($event)">病历</a>
 								</p>
 								<p :class="labelProjectBatchList[0].batchStatus!=6 ? 'rw-list rw-lista':'rw-list'" v-if="item.taskStatus==6" v-for="(item, index) in labelProjectBatchList" :key="index">
 									<span :batchTaskId="item.label.batchTaskId" :imageUrl="item.imageUrl" @click="selectTask($event,index)">{{item.taskNumber}}</span>
-									<span v-if="labelProjectBatchList[0].batchStatus==6" :batchTaskId="item.label.batchTaskId" :imageUrl="item.imageUrl" @click="selectTask($event,index)">{{item.taskStatus|acceptanceTask}}</span>
+									<span v-if="labelProjectBatchList[0].batchStatus==6" :batchTaskId="item.label.batchTaskId" :imageUrl="item.imageUrl" @click="selectTask($event,index)">（{{item.taskStatus|batchtaskstate}}）</span>
 									<a :idd="item.label.batchTaskId" @click="operation($event)">病历</a>
-								</p>
+								</p>-->
 							</el-scrollbar>
 							<el-pagination background layout="prev, pager, next" class="pageTap" @current-change="handleCurrentChange" :pager-count="5" :current-page="currentPage" :page-size="pageSize" :total="total">
       						</el-pagination>
@@ -117,11 +123,11 @@
 			</div>
 		</div>
 		<!--底部按钮-->
-		<div class="label-tool-bottom" v-if="taskType==1&&batchLabelList.status==5">
+		<div class="label-tool-bottom" v-if="taskType==1&&batchLabelList.status==10">
 			<a @click="acceptancePuzzleTask(1)">通过</a>
 			<a @click="acceptancePuzzleTask(2)">不通过</a>
 		</div>
-		<div class="label-tool-bottom" v-if="taskType==2&&taskStatus==5">
+		<div class="label-tool-bottom" v-if="taskType==2&&taskStatus==10">
 			<a @click="acceptanceBatchTask(1)">通过</a>
 			<a @click="acceptanceBatchTask(2)">不通过</a>
 		</div>
@@ -404,6 +410,8 @@
 							that.labelData = JSON.parse(that.labelProjectBatchList[index].label.labelData)
 						}
 						that.addLabelData()
+						that.labelSize = 10
+						that.changeLabelSize()
 					}
 					$(".imageLabel-loading-body").hide()
 				}, 1000)
@@ -419,7 +427,7 @@
 			},
 		    handleCurrentChange: function(currentPage) {
 		      this.currentPage = currentPage;
-		      this.getBatchTaskLabelList();
+		      this.getAcceptanceBatchTaskList();
 		    },
 			getAcceptanceBatchTaskList() { // 获取批次列表
 				this.$api.project

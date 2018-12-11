@@ -42,7 +42,7 @@
         </el-table-column>
         <el-table-column label="当前金额" width="100">
           <template slot-scope="scope">
-            <p>{{scope.row.transactionAmount}}</p>
+            <p>{{scope.row.projectBalance}}</p>
           </template>
         </el-table-column>
         <el-table-column label="项目号" width="220">
@@ -53,11 +53,13 @@
         <el-table-column label="批次号" width="220">
           <template slot-scope="scope">
             <p @click="goTo('batch',scope.row.batchId,scope.row.projectId)" class="underlineColor" v-if="scope.row.batchNumber">{{scope.row.batchNumber}}</p>
+						<p  class="underlineColornot" v-else>{{scope.row.batchNumber}}</p>
           </template>
         </el-table-column>
         <el-table-column label="任务号" width="220">
           <template slot-scope="scope">
-            <p @click="goTo('task',scope.row.taskId,scope.row.projectId)" class="underlineColor">{{scope.row.taskNumber}}</p>
+            <p @click="goTo('task',scope.row.taskId,scope.row.projectId)" class="underlineColor" v-if="scope.row.taskNumber">{{scope.row.taskNumber}}</p>
+						<p  class="underlineColornot" v-else>{{scope.row.taskNumber}}</p>
           </template>
         </el-table-column>
         <el-table-column label="交易对象" width="150">

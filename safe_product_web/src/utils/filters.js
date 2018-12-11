@@ -29,9 +29,9 @@ export function userTypeFormat(val) { //管理员类型
 
 export function alarmStatusFormat(val) { //告警处理状态
     if (val == 1) {
-        return '已处理'
-    } else if (val == 2) {
         return '未处理'
+    } else if (val == 2) {
+        return '已处理'
     }
 }
 
@@ -57,9 +57,9 @@ export function alarmTypeFormat(val) { //告警类型
 
 export function alarmcamerStatusFormat(val) { //摄像机状态
     if (val == 1) {
-        return '在线'
+        return '未告警'
     } else if (val == 2) {
-        return '离线'
+        return '已告警'
     }
 }
 

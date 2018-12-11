@@ -658,3 +658,13 @@ export function delBook(data){
   return post('/api/v1/new/delbook',data)
 }
 
+```
+
+>Git配置同时推送到GitHub和码云
+
+* 如果是在本地初始化的仓库则需先添加远程仓库
+1. git remote add origin githubProfileUrl
+
+* 然后添加同时要推送的码云
+2. git remote set-url add origin GiteeProfileUrl
+
